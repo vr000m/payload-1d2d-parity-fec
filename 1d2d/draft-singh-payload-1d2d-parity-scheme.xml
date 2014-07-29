@@ -170,14 +170,14 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
         </figure></t>
 
       <t>In <xref target="fig_decoder"></xref>, it is clear that the FEC
-      packets have to be received by the receiver within a certain time to be
-      useful in the FEC recovery process. In this document, we refer to the
+      packets have to be received by the endpoint within a certain amount of time
+      for the FEC recovery process to be useful. In this document, we refer to the
       time that spans the source packets and the corresponding repair packets
-      as the repair window. Assuming that there is no issue of delay
-      variation, the FEC decoder SHOULD NOT wait longer than the repair window
-      since additional waiting would not help the recovery process. The size
-      of the repair window depends on the source block size and the regime
-      adopted for sending the repair packets.</t>
+      as the repair window. Assuming that no delay variation is present, the FEC 
+      decoder SHOULD NOT wait longer than the repair window to perform recovery.
+      Since additional waiting would not help the recovery process and may be too late
+      to playback the packet. The size of the repair window depends on the source block 
+      size and the regime adopted for sending the repair packets.</t>
 
       <t>Suppose that we have a group of D x L source packets that have
       sequence numbers starting from 1 running to D x L, and a repair packet
@@ -206,11 +206,11 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
         </figure></t>
 
       <t>If we apply the XOR operation to the group of the source packets
-      whose sequence numbers are L apart from each other as sketched in <xref
-      target="fig_fecblock_column"></xref>, we generate L repair packets. This
-      process is referred to as 1-D interleaved FEC protection, and the
-      resulting L repair packets are referred to as interleaved (or column)
-      FEC packets.</t>
+      whose sequence numbers are L apart from each other, as sketched in <xref
+      target="fig_fecblock_column"></xref>. In this case the endpoint generates L 
+      repair packets. This process is referred to as 1-D interleaved FEC 
+      protection, and the resulting L repair packets are referred to as 
+      interleaved (or column) FEC packets.</t>
 
       <t><figure anchor="fig_fecblock_column"
           title="Generating interleaved (column) FEC packets">
@@ -234,9 +234,11 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
      +===+           +===+           +===+            +===+]]></artwork>
         </figure></t>
 
+<!-- VS: confirm it is non-interleaved OR interleaved, not both. Both 
+would imply 2-D FEC! -->
       <section title="Use Cases for 1-D FEC Protection">
         <t>We generate one non-interleaved repair packet out of L consecutive
-        source packets and one interleaved repair packet out of D
+        source packets or one interleaved repair packet out of D
         non-consecutive source packets. Regardless of whether the repair
         packet is a non-interleaved or an interleaved one, it can provide a
         full recovery of the missing information if there is only one packet
@@ -246,16 +248,20 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
         interleaved FEC protection performs better provided that L is chosen
         large enough, i.e., L-packet duration SHOULD NOT be shorter than the
         observed burst duration. The sender SHOULD monitor the occurrences of
-        the loss events on the source packets and generate non-interleaved and
-        interleaved FEC packets when the losses occur randomly and in bursts,
-        respectively.</t>
+        the loss events on the source packets and instead use 2-D parity FEC 
+        protection (See <xref target="sec_2d" />).</t>
+
+        <!-- VS: removed the following because it is discussed in the
+        next section:
+        "generate non-interleaved and interleaved FEC packets when the
+        losses occur randomly and in bursts, respectively" -->
 
         <t>If the sender generates non-interleaved FEC packets and a burst
         loss hits the source packets, the repair operation fails. This is
-        illustrated in <xref target="fig_1d_a"></xref>.</t>
+        illustrated in <xref target="fig_1d_a" />.</t>
 
         <t><figure anchor="fig_1d_a"
-            title="Example scenario where 1-D non-interleaved FEC protection fails error recovery">
+            title="Example scenario where 1-D non-interleaved FEC protection fails error recovery (Burst Loss)">
             <artwork align="center"><![CDATA[+---+                +---+  +===+
 | 1 |    X      X    | 4 |  |R_1|
 +---+                +---+  +===+
@@ -273,13 +279,13 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
         <t>The sender may generate interleaved FEC packets to combat with the
         bursty packet losses. However, two or more random packet losses may
         hit the source and repair packets in the same column. In that case,
-        the repair operation fails. This is illustrated in <xref
-        target="fig_1d_b"></xref>. Note that it is possible that two burst
+        the repair operation fails as well. This is illustrated in <xref
+        target="fig_1d_b" />. Note that it is possible that two burst
         losses may occur back-to-back, in which case interleaved FEC packets
         may still fail to recover the lost data.</t>
 
         <t><figure anchor="fig_1d_b"
-            title="Example scenario where 1-D interleaved FEC protection fails error recovery">
+            title="Example scenario where 1-D interleaved FEC protection fails error recovery (Periodic Loss)">
             <artwork align="center"><![CDATA[+---+         +---+  +---+ 
 | 1 |    X    | 3 |  | 4 |
 +---+         +---+  +---+
@@ -300,14 +306,14 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
 
       <section anchor="sec_2d" title="Use Cases for 2-D Parity FEC Protection">
         <t>In networks where the source packets are lost both randomly and in
-        bursts, the sender may generate both non-interleaved and interleaved
+        bursts, the endpoint ought to generate both non-interleaved and interleaved
         FEC packets. This type of FEC protection is known as 2-D parity FEC
         protection. At the expense of generating more FEC packets, thus
         increasing the FEC overhead, 2-D FEC provides a superior protection
-        against mixed loss patterns. However, 2-D parity FEC protection is
-        still not hitless and may fail to recover all of the lost source
-        packets if a particular loss pattern hits the source packets. An
-        example scenario is illustrated in <xref target="fig_2d1"></xref>.</t>
+        against mixed loss patterns. However, it is still possible for 
+        2-D parity FEC protection to fail to recover all of the lost source
+        packets if a particular loss pattern occurs. An example scenario is 
+        illustrated in <xref target="fig_2d1" />.</t>
 
         <t><figure anchor="fig_2d1"
             title="Example scenario #1 where 2-D parity FEC protection fails error recovery">
@@ -485,17 +491,19 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
             <xref target="sec_parameters"></xref> for details). According to
             <xref target="RFC3550"></xref>, an RTP receiver that cannot
             recognize a payload type must discard it. This provides backward
-            compatibility. The FEC mechanisms can then be used in a multicast
-            group with mixed FEC-capable and non-FEC-capable receivers. If a
-            non-FEC-capable receiver receives a repair packet, it will not
-            recognize the payload type, and hence, will discard the repair
-            packet.</t>
+            compatibility. If a non-FEC-capable receiver receives a repair packet, 
+            it will not recognize the payload type, and hence, will discard 
+            the repair packet.</t>
+
+            <!-- VS: removed pointer to multicast operation.
+            "The FEC mechanisms can then be used in a multicast
+            group with mixed FEC-capable and non-FEC-capable receivers." -->
 
             <t>Sequence Number (SN): The sequence number has the standard
             definition. It MUST be one higher than the sequence number in the
             previously transmitted repair packet. The initial value of the
-            sequence number SHOULD be random (unpredictable) <xref
-            target="RFC3550"></xref>.</t>
+            sequence number SHOULD be random (unpredictable, based on <xref
+            target="RFC3550"></xref>).</t>
 
             <t>Timestamp (TS): The timestamp SHALL be set to a time
             corresponding to the repair packet's transmission time. Note that
@@ -507,19 +515,25 @@ Source Packet: +--+    Repair Packet: +==+    Lost Packet: X
             allows the sender to multiplex the source and repair flows on the
             same port, or multiplex multiple repair flows on a single port.
             The repair flows SHOULD use the RTCP CNAME field to associate
-            themselves with the source flow. <vspace blankLines="1" />In some
-            networks, the RTP Source, which produces the source packets and
-            the FEC Source, which generates the repair packets from the source
+            themselves with the source flow. 
+            
+            <vspace blankLines="1" />
+
+            In some networks, the RTP Source, which produces the source packets 
+            and the FEC Source, which generates the repair packets from the source
             packets may not be the same host. In such scenarios, using the
             same CNAME for the source and repair flows means that the RTP
             Source and the FEC Source MUST share the same CNAME (for this
             specific source-repair flow association). A common CNAME may be
             produced based on an algorithm that is known both to the RTP and
             FEC Source. This usage is compliant with <xref
-            target="RFC3550"></xref>.<vspace blankLines="1" />Note that due to
-            the randomness of the SSRC assignments, there is a possibility of
-            SSRC collision. In such cases, the collisions MUST be resolved as
-            described in <xref target="RFC3550"></xref>.</t>
+            target="RFC3550"></xref>.
+            
+            <vspace blankLines="1" />
+
+            Note that due to the randomness of the SSRC assignments, there is a 
+            possibility of SSRC collision. In such cases, the collisions MUST be 
+            resolved as described in <xref target="RFC3550"></xref>.</t>
           </list></t>
 
         <t>The FEC header is 12 octets (or 16 octets when the optional padding
