@@ -93,7 +93,9 @@
       document address the scalability issues experienced with the earlier
       specifications including RFC 2733, RFC 5109 and SMPTE 2022-1, and offer
       several improvements. Due to these changes, the new payload formats are
-      not backward compatible with the earlier specifications.</t>
+      not backward compatible with the earlier specifications, but endpoints
+      that do not implement the scheme can still work by simply ignoring the 
+      FEC packets.</t>
     </abstract>
   </front>
 
@@ -106,10 +108,13 @@
       video, text or application. The FEC data are generated according to the
       media type parameters, which are communicated out-of-band (e.g., in SDP).
       Furthermore, the associations or relationships between the source and repair 
-      flows is also communicated out-of-band.</t>
+      flows may be communicated in-band or out-of-band. Situtations where
+      adaptivitiy of FEC parameters is preferred, the endpoint can use the
+      in-band mechanism. Whereas when the FEC parameters are fixed, the 
+      endpoint may prefer to negotiate them out-of-band.</t>
 
       <t>Both the non-interleaved and interleaved parity codes use the
-      exclusive OR (XOR) operation to generate the repair symbols. In a
+      eXclusive OR (XOR) operation to generate the repair symbols. In a
       nutshell, the following steps take place:</t>
 
       <t><list style="numbers">
@@ -427,7 +432,13 @@ would imply 2-D FEC! -->
 
             <t>D: Number of rows of the source block.</t>
 
-            <t>ToP: Type of protection.</t>
+            <!-- <t>ToP: Type of protection.</t> -->
+
+            <t>bitmask: is a run-length encoding of packets protected by this 
+              FEC packet. If the bit i in the mask is set to 1, the media packet 
+              number N + i is protected by this FEC packet.  Here, N is the 
+              sequence number base, which is indicated in the FEC packet as well.</t>
+
           </list></t>
       </section>
     </section>
@@ -540,11 +551,29 @@ would imply 2-D FEC! -->
         is used). The format of the FEC header is shown in <xref
         target="fig_repairfecpayloadid2"></xref>.</t>
 
-        <t><figure anchor="fig_repairfecpayloadid2"
-            title="Format of the FEC header">
+        <t><figure anchor="fig_repairfecpayloadid2" title="Format of the FEC header">
             <preamble></preamble>
 
-            <artwork align="center"><![CDATA[ 0                   1                   2                   3
+            <artwork align="center"><![CDATA[ 
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|MSK|P|X|  CC   |M| PT recovery |            SN base            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          TS recovery                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|        length recovery        |L or Mask[8-15]| D or Mask[0-7]|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                     Mask[16-47] (optional)                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                     Mask[48-111] (optional)                   +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork></figure></t>
+<!-- 
+OLD FORMAT:
+ 0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |E|I|P|X|  CC   |M| PT recovery |            SN base            |
@@ -554,12 +583,7 @@ would imply 2-D FEC! -->
 |        Length recovery        |            Padding            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                       Padding (optional)                      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+]]></artwork>
-          </figure></t>
-
-        <t>The FEC header consists of the following fields:</t>
-
-        <t><list style="symbols">
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             <t>The E bit is the extension flag reserved to indicate any future
             extension to this specification.</t>
 
@@ -567,6 +591,27 @@ would imply 2-D FEC! -->
             header. The padding length SHOULD be selected based on the
             platform architecture and the impact of header length on the
             header processing performance.</t>
+
+            <t>The Padding field is used to pad the FEC header to 12 bytes
+            (integer multiples of 32 bits).</t>
+ -->
+
+        <t>The FEC header consists of the following fields:</t>
+
+        <t><list style="symbols">
+            <t>The MSK field (2 bits) indicates the length of the mask. 
+              Namely:
+    <figure anchor="table-fec-msk-bits" title="MSK bit values">
+      <artwork><![CDATA[
+ +---------------+------------------------------------+
+ |    MSK bits   | Use                                |
+ +---------------+------------------------------------+
+ |      00       | 16-bit mask                        |
+ |      01       | 48-bit mask                        |
+ |      10       | 112-bit mask                       |
+ |      11       | fixed indicated by value of L x D |
+ +---------------+------------------------------------+
+]]></artwork></figure></t>
 
             <t>The P, X, CC, M and PT recovery fields are used to determine
             the corresponding fields of the recovered packets.</t>
@@ -581,11 +626,25 @@ would imply 2-D FEC! -->
             <t>The Length recovery field is used to determine the length of
             the recovered packets.</t>
 
-            <t>The Padding field is used to pad the FEC header to 12 bytes
-            (integer multiples of 32 bits).</t>
-
-            <t>The second (optional) Padding field is used to pad the FEC
-            header to 16 bytes (integer multiples of 64 bits).</t>
+            <t>MASK is a run-length encoding of packets protected by the FEC
+              packet. Where a bit i set to 1 indicates that the media packet 
+              sequence number (SN base + i) is protected by this FEC packet.
+            </t>
+            <t>If the the MSK field is set to 11, it indicates a fixed protection
+              pattern with "L" (number of columns) and "D" (number of rows).
+              Consequently, the following conditions may occur:
+              <figure anchor="table-fec-ld-field" title="Interpreting the L and D field values">
+              <artwork><![CDATA[
+If L=0, D=0,  use values in SDP not RTP.
+If L>0, D=0,  then non-interleaved row FEC of L packets 
+              starting at SN base.
+If L=0, D>0,  then interleaved column FEC of D packets 
+              starting at SN base.
+If L>0, D>0,  then interleaved row and column FEC of L and D packets 
+              starting at SN base.
+]]></artwork></figure>
+            </t>
+          
           </list></t>
 
         <t>The details on setting the fields in the FEC header are provided in
