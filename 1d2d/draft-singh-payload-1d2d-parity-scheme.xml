@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="21" month="August" year="2014"/>
+    <date year="2014"/>
 
     <workgroup>PAYLOAD</workgroup>
 
@@ -637,7 +637,7 @@ If M>0, N=0,  indicates a non-interleaved (row) FEC of M packets
               Hence, FEC = SN, SN+1, SN+2, ... , SN+M.
 If M>0, N>0,  indicates interleaved (column) FEC of every M packet 
               in a group of N packets starting at SN base.
-              Hence, FEC = (SN+M)x1, (SN+M)x2, ... , (SN+M)xN.
+              Hence, FEC = SN+(Mx0), SN+(Mx1), ... , SN+(MxN).
 ]]></artwork>
               </figure></t>
           </list></t>
@@ -978,7 +978,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
         the lowest sequence number indicated in the bitmask.  When MSK=11, the
         following considerations apply: 1) for the interleaved FEC packets,
         this corresponds to the lowest sequence number of the source packets
-        that forms the column, 2) for the non- interleaved FEC packets, the SN
+        that forms the column, 2) for the non-interleaved FEC packets, the SN
         base field MUST be set to the lowest sequence number of the source
         packets that forms the row.</t>
 
@@ -1017,50 +1017,83 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
         <section anchor="sec_associating_source_repair"
                  title="Associating the Source and Repair Packets">
-                 <!-- FIXME: VS  -->
-          <t>The first step is associating the source and repair packets. By
-          virtue of the payload type field in the RTP header, each repair
-          packet is indicated whether it is an interleaved or non-interleaved
-          FEC packet. In addition, the SN base field in the FEC header shows
-          the lowest sequence number of the source packets that form the
-          particular column or row. Finally, the information of how many
-          source packets are included in each column or row is available from
-          the media type parameters specified in the SDP description. This set
-          of information uniquely identifies all of the source packets
-          associated with a given repair packet.</t>
 
-          <t>Mathematically, for any received repair packet, p*, we can
-          determine the sequence numbers of the source packets that are
-          protected by this repair packet as follows:</t>
+          <t>
+            We denote the set of the source packets associated with repair
+            packet p* by set T(p*). Note that in a source block whose size is L
+            columns by D rows, set T includes D source packets plus one repair
+            packet for the FEC protection applied over a column, and L source
+            packets plus one repair packet for the FEC protection applied over a
+            row. Recall that 1-D interleaved and non-interleaved FEC protection
+            can fully recover the missing information if there is only one
+            source packet missing in set T. If there are more than one source
+            packets missing in set T, 1-D FEC protection will not work.
+          </t>
 
-          <t><figure>
-              <preamble/>
+          <section anchor="sec_repair_sdp" title="Signaled in SDP">
+            <t>
+              The first step is associating the source and repair packets. If
+              the endpoint relies entirely on out-of-band signaling (MSK=11, and
+              M=N=0), then this information may be inferred from the media type
+              parameters specified in the SDP description. Furtheremore, the
+              payload type field in the RTP header, assists the receiver
+              distinguish an interleaved or non-interleaved FEC packet. 
+            </t>
 
-              <artwork align="center"><![CDATA[p*_snb + i * X_1 (modulo 65536)]]></artwork>
-            </figure></t>
+            <t>Mathematically, for any received repair packet, p*, we can
+            determine the sequence numbers of the source packets that are
+            protected by this repair packet as follows:</t>
 
-          <t>where p*_snb denotes the value in the SN base field of p*'s FEC
-          header, X_1 is set to L and 1 for the interleaved and
-          non-interleaved FEC packets, respectively, and</t>
+            <t> <figure> <preamble/> <artwork align="center">
+              <![CDATA[p*_snb + i * X_1 (modulo 65536)]]>
+            </artwork> </figure> </t>
 
-          <t><figure>
-              <preamble/>
+            <t>where p*_snb denotes the value in the SN base field of p*'s FEC
+            header, X_1 is set to L and 1 for the interleaved and
+            non-interleaved FEC packets, respectively, and</t>
 
-              <artwork align="center"><![CDATA[0 <= i < X_2]]></artwork>
-            </figure></t>
+            <t> <figure> <preamble/> <artwork align="center">
+              <![CDATA[0 <= i < X_2]]>
+            </artwork> </figure> </t>
 
-          <t>where X_2 is set to D and L for the interleaved and
-          non-interleaved FEC packets, respectively.</t>
+            <t>where X_2 is set to D and L for the interleaved and
+            non-interleaved FEC packets, respectively.</t>
+          </section>
 
-          <t>We denote the set of the source packets associated with repair
-          packet p* by set T(p*). Note that in a source block whose size is L
-          columns by D rows, set T includes D source packets plus one repair
-          packet for the FEC protection applied over a column, and L source
-          packets plus one repair packet for the FEC protection applied over a
-          row. Recall that 1-D interleaved and non-interleaved FEC protection
-          can fully recover the missing information if there is only one
-          source packet missing in set T. If there are more than one source
-          packets missing in set T, 1-D FEC protection will not work.</t>
+          <section anchor="sec_repair_bitmask" title="Using bitmasks">
+            <t>
+              When using fixed size bitmasks (16-, 48-, 112-bits), the SN base
+              field in the FEC header indicates the lowest sequence number of
+              the source packets that forms the FEC packet. Finally, the bits
+              maked by "1" in the bitmask are offsets from the SN base and
+              make up the rest of the packets protected by the FEC packet.
+              The bitmasks are able to represent arbitrary protection patterns,
+              for example, 1-D interleaved, 1-D non-interleaved, 2-D, staircase.
+            </t>
+          </section>
+
+          <section anchor="sec_repair_offset" title="Using M and N Offsets">
+            <t>
+              When value of M is non-zero, the 8-bit fields indicate the
+              offset of packets protected by an interleaved (N>0) or 
+              non-interleaved (N=0) FEC packet. Using a combination of 
+              interleaved and non-interleaved FEC packets can form 
+              2-D protection patterns.
+            </t>
+            <t>Mathematically, for any received repair packet, p*,
+              we can determine the sequence numbers of the source 
+              packets that are protected by this repair packet are as 
+              follows:</t>
+              <t> <figure> <preamble/> <artwork align="center">
+              <![CDATA[
+When N = 0:
+    p*_snb, p*_snb+1, ..., p*_snb+M
+When N > 0:
+    p*_snb+(Mx0), p*_snb+(Mx1), p*_snb+(Mx2), ..., p*_snb+(MxN)
+              ]]>
+            </artwork> </figure> </t>
+
+          </section>          
         </section>
 
         <section anchor="sec_recovering_rtp_header"
@@ -1156,6 +1189,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
         <section anchor="sec_iterative_decoding"
                  title="Iterative Decoding Algorithm for the 2-D Parity FEC Protection">
+                 <!-- VS: FIXME: multiple passes over source and repair streams -->
           <t>In 2-D parity FEC protection, the sender generates both
           non-interleaved and interleaved FEC packets to combat with the mixed
           loss patterns (random and bursty). At the receiver side, these FEC
