@@ -916,13 +916,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
         <t>The RTP header of a repair packet is formed based on the guidelines
         given in <xref target="sec_repair_fec_payload_id"/>.</t>
 
-        <t>The FEC header includes 12 octets (or 16 octets when the optional
-        padding is used). It is constructed by applying the XOR operation on
-        the bit strings that are generated from the individual source packets
+        <t>The FEC header includes 12 octets (or upto 28 octets when the longer
+        optional masks are used). It is constructed by applying the XOR operation 
+        on the bit strings that are generated from the individual source packets
         protected by this particular repair packet. The set of the source
         packets that are associated with a given repair packet can be computed
-        by the formula given in <xref
-        target="sec_associating_source_repair"/>.</t>
+        by the formula given in <xref target="sec_associating_source_repair"/>.</t>
 
         <t>The bit string is formed for each source packet by concatenating
         the following fields together in the order specified:</t>
@@ -934,52 +933,54 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             packet length in bytes minus 12 (for the fixed RTP header), i.e.,
             the sum of the lengths of all the following if present: the CSRC
             list, extension header, RTP payload and RTP padding (16 bits).</t>
-          </list>By applying the parity operation on the bit strings produced
-        from the source packets, we generate the FEC bit string. The FEC
-        header is generated from the FEC bit string as follows:</t>
+          </list>
+
+          By applying the parity operation on the bit strings produced from
+          the source packets, we generate the FEC bit string. The FEC header is
+          generated from the FEC bit string as follows: </t>
 
         <t><list style="symbols">
-            <t>The first (most significant) 2 bits in the FEC bit string are
-            skipped. The E bit in the FEC header is set to 0. The I bit in the
-            FEC header is set to 0 if only 2-byte padding is used, or to 1 if
-            6-byte padding is used.</t>
+          <t>The first (most significant) 2 bits in the FEC bit string are
+          skipped. The MSK bits in the FEC header are set to the appropriate 
+          value, i.e., it depends on the chosen bitmask length.</t>
 
-            <t>The next bit in the FEC bit string is written into the P
-            recovery bit in the FEC header.</t>
+          <t>The next bit in the FEC bit string is written into the P
+          recovery bit in the FEC header.</t>
 
-            <t>The next bit in the FEC bit string is written into the X
-            recovery bit in the FEC header.</t>
+          <t>The next bit in the FEC bit string is written into the X
+          recovery bit in the FEC header.</t>
 
-            <t>The next 4 bits of the FEC bit string are written into the CC
-            recovery field in the FEC header.</t>
+          <t>The next 4 bits of the FEC bit string are written into the CC
+          recovery field in the FEC header.</t>
 
-            <t>The next bit is written into the M recovery bit in the FEC
-            header.</t>
+          <t>The next bit is written into the M recovery bit in the FEC
+          header.</t>
 
-            <t>The next 7 bits of the FEC bit string are written into the PT
-            recovery field in the FEC header.</t>
+          <t>The next 7 bits of the FEC bit string are written into the PT
+          recovery field in the FEC header.</t>
 
-            <t>The next 16 bits are skipped.</t>
+          <t>The next 16 bits are skipped.</t>
 
-            <t>The next 32 bits of the FEC bit string are written into the TS
-            recovery field in the FEC header.</t>
+          <t>The next 32 bits of the FEC bit string are written into the TS
+          recovery field in the FEC header.</t>
 
-            <t>The next 16 bits are written into the length recovery field in
-            the FEC header.</t>
+          <t>The next 16 bits are written into the length recovery field in
+          the FEC header.</t>
 
-            <t>The 2-byte padding field of the FEC header SHALL be set to
-            0.</t>
+          <t>Depending on the chosen MSK value, the bit mask of appropriate
+          length will be set to the appropriate values.</t>
+        </list>
 
-            <t>If the I bit is set to 1, indicating that 6-byte padding is
-            used, four more bytes SHALL be added to the FEC header and these
-            bytes SHALL be set to 0.</t>
-          </list>As described in <xref target="sec_repair_fec_payload_id"/>,
-        the SN base field of the FEC header MUST be set to the lowest sequence
-        number of the source packets protected by this repair packet. For the
-        interleaved FEC packets, this corresponds to the lowest sequence
-        number of the source packets that form the column. For the
-        non-interleaved FEC packets, the SN base field MUST be set to the
-        lowest sequence number of the source packets that form the row.</t>
+        As described in <xref target="sec_repair_fec_payload_id"/>, the SN
+        base field of the FEC header MUST be set to the lowest sequence number
+        of the source packets protected by this repair packet. When MSK
+        represents a bitmask (MSK=00,01,10), the SN base field corresponds to
+        the lowest sequence number indicated in the bitmask.  When MSK=11, the
+        following considerations apply: 1) for the interleaved FEC packets,
+        this corresponds to the lowest sequence number of the source packets
+        that forms the column, 2) for the non- interleaved FEC packets, the SN
+        base field MUST be set to the lowest sequence number of the source
+        packets that forms the row.</t>
 
         <t>The repair packet payload consists of the bits that are generated
         by applying the XOR operation on the payloads of the source RTP
@@ -1016,6 +1017,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
         <section anchor="sec_associating_source_repair"
                  title="Associating the Source and Repair Packets">
+                 <!-- FIXME: VS  -->
           <t>The first step is associating the source and repair packets. By
           virtue of the payload type field in the RTP header, each repair
           packet is indicated whether it is an interleaved or non-interleaved
