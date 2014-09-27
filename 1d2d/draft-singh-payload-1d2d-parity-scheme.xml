@@ -550,7 +550,7 @@ would imply 2-D FEC! -->
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                          TS recovery                          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        length recovery        |L or Mask[8-15]| D or Mask[0-7]|
+|        length recovery        |M or Mask[8-15]| N or Mask[0-7]|
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                    Mask [16-47] (optional)                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -589,19 +589,22 @@ OLD FORMAT:
         <t>The FEC header consists of the following fields:</t>
 
         <t><list style="symbols">
-            <t>The MSK field (2 bits) indicates the type of the mask. Namely:
-            <figure anchor="table-fec-msk-bits" title="MSK bit values">
-                <artwork><![CDATA[
- +---------------+------------------------------------+
- |    MSK bits   | Use                                |
- +---------------+------------------------------------+
- |      00       | 16-bit mask                        |
- |      01       | 48-bit mask                        |
- |      10       | 112-bit mask                       |
- |      11       | A block size of L x D              |
- +---------------+------------------------------------+
+          <t>The MSK field (2 bits) indicates the type of the mask. Namely:
+          <figure anchor="table-fec-msk-bits" title="MSK bit values">
+            <artwork><![CDATA[
+ +---------------+-------------------------------------+
+ |    MSK bits   | Use                                 |
+ +---------------+-------------------------------------+
+ |      00       | 16-bit mask                         |
+ |      01       | 48-bit mask                         |
+ |      10       | 112-bit mask                        |
+ |      11       | packets indicated by offset M and N |
+ +---------------+-------------------------------------+
 ]]></artwork>
-              </figure></t>
+          </figure></t>
+
+          <!-- VS: I changed L and D in this section to M and N, to avoid
+          confusion with the use of L and D with regular patterns. -->
 
             <t>The P, X, CC, M and PT recovery fields are used to determine
             the corresponding fields of the recovered packets.</t>
@@ -621,19 +624,20 @@ OLD FORMAT:
             with sequence number (SN base + i) is protected by this FEC
             packet.</t>
 
-            <t>If the the MSK field is set to 11, it indicates a fixed
-            protection pattern with "L" (number of columns) and "D" (number of
-            rows). Consequently, the following conditions may occur: <figure
+            <t>If the the MSK field is set to 11, it indicates the offset of
+            packets protected by this FEC packet. Consequently, the following 
+            conditions may occur: <figure
                 anchor="table-fec-ld-field"
-                title="Interpreting the L and D field values">
+                title="Interpreting the M and N field values">
                 <artwork><![CDATA[
-If L=0, D=0,  use values in the SDP description.
-If L>0, D=0,  then non-interleaved (row) FEC of L packets 
+If M=0, N=0,  regular protection pattern code with the values of 
+              L and D are indicared in the SDP description.
+If M>0, N=0,  indicates a non-interleaved (row) FEC of M packets 
               starting at SN base.
-If L=0, D>0,  then interleaved (column) FEC of D packets 
-              starting at SN base.
-If L>0, D>0,  then interleaved row and column FEC of L and D packets 
-              starting at SN base.
+              Hence, FEC = SN, SN+1, SN+2, ... , SN+M.
+If M>0, N>0,  indicates interleaved (column) FEC of every M packet 
+              in a group of N packets starting at SN base.
+              Hence, FEC = (SN+M)x1, (SN+M)x2, ... , (SN+M)xN.
 ]]></artwork>
               </figure></t>
           </list></t>
@@ -641,21 +645,31 @@ If L>0, D>0,  then interleaved row and column FEC of L and D packets
         <t>The details on setting the fields in the FEC header are provided in
         <xref target="sec_repair_packet_construction"/>.</t>
 
-        <t>It should be noted that a mask-based approach (similar to the ones
-        specified in <xref target="RFC2733"/> and <xref target="RFC5109"/>)
-        may not be very efficient to indicate which source packets in the
-        current source block are associated with a given repair packet. In
-        particular, for the applications that would like to use large source
-        block sizes, the size of the mask that is required to describe the
-        source-repair packet associations may be prohibitively large. Instead,
-        a systematized approach similar to the one proposed in <xref
-        target="SMPTE2022-1"/> is inherently more efficient. Yet, <xref
-        target="SMPTE2022-1"/> carries the values of D and L in 8-bit fields.
-        While this approach can support larger blocks compared to the
-        mask-based approaches, 8-bit fields may still be limiting when a
-        high-bitrate source flow (e.g., a flow carrying ultra high-definition
-        video) is to be protected or when network outages/lossy periods span
-        more than 255 packets.</t>
+        <t>
+
+          It should be noted that a mask-based approach (similar to the ones
+          specified in <xref target="RFC2733"/> and <xref target="RFC5109"/>)
+          may not be very efficient to indicate which source packets in the
+          current source block are associated with a given repair packet. In
+          particular, for the applications that would like to use large source
+          block sizes, the size of the mask that is required to describe the
+          source-repair packet associations may be prohibitively large. The
+          8-bit fields proposed in <xref target="SMPTE2022-1"/> indicate a
+          systematized approach. Instead the approach in this document uses
+          the 8-bit fields  to indicate packet offsets protected by the FEC
+          packet. The approach in <xref target="SMPTE2022-1"/> is inherently
+          more efficient for regular patterns, it does not provide flexibility
+          to represent other protection patterns (e.g., staircase).
+        </t>
+
+        <t>
+        <!-- Yet, <xref target="SMPTE2022-1"/> carries the values of D and L in
+        8-bit fields. While this approach can support larger blocks compared
+        to the mask-based approaches, 8-bit fields may still be limiting when
+        a high-bitrate source flow (e.g., a flow carrying ultra high-
+        definition video) is to be protected or when network outages/lossy
+        periods span more than 255 packets. -->
+        </t>
       </section>
     </section>
 
