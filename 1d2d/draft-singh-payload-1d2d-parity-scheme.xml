@@ -634,7 +634,7 @@ If M=0, N=0,  regular protection pattern code with the values of
               L and D are indicared in the SDP description.
 If M>0, N=0,  indicates a non-interleaved (row) FEC of M packets 
               starting at SN base.
-              Hence, FEC = SN, SN+1, SN+2, ... , SN+M.
+              Hence, FEC = SN, SN+1, SN+2, ... , SN+(M-1), SN+M.
 If M>0, N>0,  indicates interleaved (column) FEC of every M packet 
               in a group of N packets starting at SN base.
               Hence, FEC = SN+(Mx0), SN+(Mx1), ... , SN+(MxN).
@@ -1085,11 +1085,10 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               packets that are protected by this repair packet are as 
               follows:</t>
               <t> <figure> <preamble/> <artwork align="center">
-              <![CDATA[
-When N = 0:
-    p*_snb, p*_snb+1, ..., p*_snb+M
+              <![CDATA[When N = 0:
+  p*_snb, p*_snb+1,..., p*_snb+(M-1), p*_snb+M
 When N > 0:
-    p*_snb+(Mx0), p*_snb+(Mx1), p*_snb+(Mx2), ..., p*_snb+(MxN)
+  p*_snb, p*_snb+(Mx1), p*_snb+(Mx2),..., p*_snb+(Mx(N-1)), p*_snb+(MxN)
               ]]>
             </artwork> </figure> </t>
 
