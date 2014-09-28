@@ -1173,9 +1173,8 @@ When N > 0:
 
               <t>For the repair packet in T, compute the FEC bit string from
               the repair packet payload, i.e., the Y octets of data following
-              the FEC header. Note that the FEC header may be 12 octets or 16
-              octets depending on whether the optional padding is used or
-              not.</t>
+              the FEC header. Note that the FEC header may be 12, 16, 32
+              octets depending on the length of the bitmask.</t>
 
               <t>Calculate the recovered bit string as the XOR of the bit
               strings generated from all source packets in T and the FEC bit
