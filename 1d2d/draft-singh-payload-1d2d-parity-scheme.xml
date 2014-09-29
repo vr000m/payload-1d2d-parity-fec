@@ -6,7 +6,6 @@
 <!ENTITY __reference.RFC.4756 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4756.xml">
 <!ENTITY __reference.RFC.2733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2733.xml">
 <!ENTITY __reference.RFC.5109 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5109.xml">
-<!ENTITY __reference.RFC.4288 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4288.xml">
 <!ENTITY __reference.RFC.3555 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3555.xml">
 <!ENTITY __reference.RFC.3264 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3264.xml">
 <!ENTITY __reference.I-D.begen-mmusic-fec-grouping-issues SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.begen-mmusic-fec-grouping-issues.xml">
@@ -719,7 +718,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -785,7 +784,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -851,7 +850,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -917,7 +916,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -983,7 +982,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -1049,7 +1048,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -1115,7 +1114,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288" />) and
+          4.8 in the template document <xref target="RFC6838" />) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -1181,7 +1180,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288"/>) and
+          4.8 in the template document <xref target="RFC6838"/>) and
           contains binary data.</t>
 
           <t>Security considerations: See <xref
@@ -1896,7 +1895,7 @@ When N > 0:
 
       &__reference.RFC.4566;
 
-      &__reference.RFC.4288;
+      <!-- &__reference.RFC.4288; updated by RFC6838-->
 
       &__reference.RFC.3555;
 
