@@ -688,6 +688,192 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
         "XXXX" with the number of this document prior to publication as an
         RFC.</t>
 
+        <section title="Registration of audio/non-interleaved-parityfec">
+          <t>Type name: audio</t>
+
+          <t>Subtype name: non-interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
+        <section title="Registration of video/non-interleaved-parityfec">
+          <t>Type name: video</t>
+
+          <t>Subtype name: non-interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
+        <section title="Registration of text/non-interleaved-parityfec">
+          <t>Type name: text</t>
+
+          <t>Subtype name: non-interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
         <section title="Registration of application/non-interleaved-parityfec">
           <t>Type name: application</t>
 
@@ -718,8 +904,194 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288"/>) and contains
-          binary data.</t>
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
+        <section title="Registration of audio/interleaved-parityfec">
+          <t>Type name: audio</t>
+
+          <t>Subtype name: interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
+        <section title="Registration of video/interleaved-parityfec">
+          <t>Type name: video</t>
+
+          <t>Subtype name: interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
+
+          <t>Security considerations: See <xref
+          target="sec_security_considerations" /> of [RFCXXXX].</t>
+
+          <t>Interoperability considerations: None.</t>
+
+          <t>Published specification: [RFCXXXX].</t>
+
+          <t>Applications that use this media type: Multimedia applications
+          that want to improve resiliency against packet loss by sending
+          redundant data in addition to the source media.</t>
+
+          <t>Additional information: None.</t>
+
+          <t>Person &amp; email address to contact for further information:
+          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
+          Working Group.</t>
+
+          <t>Intended usage: COMMON.</t>
+
+          <t>Restriction on usage: This media type depends on RTP framing, and
+          hence, is only defined for transport via RTP <xref
+          target="RFC3550" />.</t>
+
+          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+
+          <t>Change controller: IETF Audio/Video Transport Working Group
+          delegated from the IESG.</t>
+        </section>
+
+        <section title="Registration of text/interleaved-parityfec">
+          <t>Type name: text</t>
+
+          <t>Subtype name: interleaved-parityfec</t>
+
+          <t>Required parameters:</t>
+
+          <t><list style="symbols">
+              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
+              larger than 1000 Hz to provide sufficient resolution to RTCP
+              operations. However, it is RECOMMENDED to select the rate that
+              matches the rate of the protected source RTP stream.</t>
+
+              <t>L: Number of columns of the source block. L is a positive
+              integer.</t>
+
+              <t>D: Number of rows of the source block. D is a positive
+              integer.</t>
+
+              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
+              interleaved FEC protection, 1 for 1-D non-interleaved FEC
+              protection, and 2 for 2-D parity FEC protection. The ToP value
+              of 3 is reserved for future uses.</t>
+
+              <t>repair-window: The time that spans the source packets and the
+              corresponding repair packets. The size of the repair window is
+              specified in microseconds.</t>
+            </list>Optional parameters: None.</t>
+
+          <t>Encoding considerations: This media type is framed (See Section
+          4.8 in the template document <xref target="RFC4288" />) and
+          contains binary data.</t>
 
           <t>Security considerations: See <xref
           target="sec_security_considerations"/> of [RFCXXXX].</t>
@@ -780,8 +1152,8 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
             </list>Optional parameters: None.</t>
 
           <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC4288"/>) and contains
-          binary data.</t>
+          4.8 in the template document <xref target="RFC4288"/>) and
+          contains binary data.</t>
 
           <t>Security considerations: See <xref
           target="sec_security_considerations"/> of [RFCXXXX].</t>
@@ -804,13 +1176,14 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
           <t>Restriction on usage: This media type depends on RTP framing, and
           hence, is only defined for transport via RTP <xref
-          target="RFC3550"/>.</t>
+          target="RFC3550" />.</t>
 
           <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
         </section>
+
       </section>
 
       <section title="Mapping to SDP Parameters">
@@ -1088,8 +1461,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               <![CDATA[When N = 0:
   p*_snb, p*_snb+1,..., p*_snb+(M-1), p*_snb+M
 When N > 0:
-  p*_snb, p*_snb+(Mx1), p*_snb+(Mx2),..., p*_snb+(Mx(N-1)), p*_snb+(MxN)
-              ]]>
+  p*_snb, p*_snb+(Mx1), p*_snb+(Mx2),..., p*_snb+(Mx(N-1)), p*_snb+(MxN)]]>
             </artwork> </figure> </t>
 
           </section>          
@@ -1461,8 +1833,10 @@ When N > 0:
         changes compared to that document:</t>
 
         <t><list style="symbols">
-            <t>Removed superfluous Media Type registrations, kept only
-            application/.</t>
+            <t>Updated packet format with 16-, 48-, 112- bitmask.</t>
+            <t>Updated the sections on: repair packet construction, 
+              source packet construction.</t>
+            <t>Updated the media type registration and aligned to RFC6838.</t>
           </list></t>
       </section>
 
