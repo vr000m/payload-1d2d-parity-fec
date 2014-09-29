@@ -17,6 +17,7 @@
 <!ENTITY __reference.RFC.5246 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
 <!ENTITY __reference.RFC.6363 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6363.xml">
 <!ENTITY __reference.RFC.7022 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7022.xml">
+<!ENTITY __reference.RFC.6838 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6838.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
@@ -681,7 +682,7 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
       <section title="Media Type Registration">
         <t>This registration is done using the template defined in <xref
-        target="RFC4288"/> and following the guidance provided in <xref
+        target="RFC6838"/> and following the guidance provided in <xref
         target="RFC3555"/>.</t>
 
         <t>Note to the RFC Editor: In the following sections, please replace
@@ -732,11 +733,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -744,10 +747,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of video/non-interleaved-parityfec">
@@ -794,11 +799,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -806,10 +813,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of text/non-interleaved-parityfec">
@@ -856,11 +865,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -868,10 +879,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of application/non-interleaved-parityfec">
@@ -918,11 +931,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -930,10 +945,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of audio/interleaved-parityfec">
@@ -980,11 +997,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -992,10 +1011,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of video/interleaved-parityfec">
@@ -1042,11 +1063,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -1054,10 +1077,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of text/interleaved-parityfec">
@@ -1104,11 +1129,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -1116,10 +1143,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550"/>.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
         <section title="Registration of application/interleaved-parityfec">
@@ -1166,11 +1195,13 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           that want to improve resiliency against packet loss by sending
           redundant data in addition to the source media.</t>
 
+          <t>Fragment identifier considerations: None.</t>
+
           <t>Additional information: None.</t>
 
           <t>Person &amp; email address to contact for further information:
-          Ali Begen &lt;abegen@cisco.com&gt; and IETF Audio/Video Transport
-          Working Group.</t>
+          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
+          Payloads Working Group.</t>
 
           <t>Intended usage: COMMON.</t>
 
@@ -1178,10 +1209,12 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           hence, is only defined for transport via RTP <xref
           target="RFC3550" />.</t>
 
-          <t>Author: Ali Begen &lt;abegen@cisco.com&gt;.</t>
+          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
 
           <t>Change controller: IETF Audio/Video Transport Working Group
           delegated from the IESG.</t>
+
+          <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
       </section>
@@ -1874,6 +1907,8 @@ When N > 0:
       &__reference.RFC.6363;
 
       &__reference.RFC.7022;
+
+      &__reference.RFC.6838;
     </references>
 
     <references title="Informative References">
