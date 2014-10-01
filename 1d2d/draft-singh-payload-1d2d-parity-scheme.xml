@@ -17,6 +17,7 @@
 <!ENTITY __reference.RFC.6363 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6363.xml">
 <!ENTITY __reference.RFC.7022 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7022.xml">
 <!ENTITY __reference.RFC.6838 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6838.xml">
+<!ENTITY __reference.adaptive-fec SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.singh-rmcat-adaptive-fec.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
@@ -1797,14 +1798,16 @@ When N > 0:
       MUST NOT arbitrarily increase the amount of FEC protection since doing
       so may lead to a congestion collapse. If desired, stronger FEC
       protection MAY be applied only after the source rate has been
-      reduced.</t>
+      reduced <xref target="I-D.singh-rmcat-adaptive-fec" />.</t>
 
       <t>In a network-friendly implementation, an application SHOULD NOT
       send/receive FEC repair flows if it knows that sending/receiving those
       FEC repair flows would not help at all in recovering the missing
-      packets. Such a practice helps reduce the amount of wasted bandwidth. It
-      is RECOMMENDED that the amount of FEC protection is adjusted dynamically
-      based on the packet loss rate observed by the applications.</t>
+      packets. However, it MAY still continue to use FEC if considered for 
+      bandwidth estimation instead of speculatively probe for additional 
+      capacity <xref target="Holmer13" /><xref target="Nagy14" />. 
+      It is RECOMMENDED that the amount of FEC protection is adjusted 
+      dynamically based on the packet loss rate observed by the applications.</t>
 
       <t>In multicast scenarios, it may be difficult to optimize the FEC
       protection per receiver. If there is a large variation among the levels
@@ -1937,6 +1940,32 @@ When N > 0:
       &__reference.RFC.4301;
 
       &__reference.RFC.5246;
+
+      &__reference.adaptive-fec;
+
+      <reference anchor="Nagy14">
+        <front>
+          <title>Congestion Control using FEC for Conversational Multimedia Communication</title>
+          <author initials="M" surname="Nagy"></author>
+          <author initials="V" surname="Singh"></author>
+          <author initials="J"  surname="Ott"></author>
+          <author initials="L" surname="Eggert"></author>
+          <date month="3" year="2014" />
+        </front>
+        <seriesInfo name="Proc. of 5th ACM Internation Conference on  Multimedia Systems (MMSys 2014)" value="" />
+      </reference>
+      
+      <reference anchor="Holmer13">
+        <front>
+          <title>Handling Packet Loss in WebRTC</title>
+          <author initials="S" surname="Holmer"></author>
+          <author initials="M" surname="Shemer"></author>
+          <author initials="M"  surname="Paniconi"></author>
+          <date month="9" year="2013" />
+        </front>
+        <seriesInfo name="Proc. of IEEE International Conference on Image Processing (ICIP 2013)" value="" />
+      </reference>
+
     </references>
   </back>
 </rfc>
