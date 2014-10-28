@@ -1717,62 +1717,56 @@ When N > 0:
       target="RFC4756"/>.</t>
 
       <section title="Example SDP for 1-D Parity FEC Protection">
-        <t>In this example, we have one source video stream (mid:S1) and one
-        FEC repair stream (mid:R1). We form one FEC group with the
-        "a=group:FEC S1 R1" line. The source and repair streams are sent to
-        the same port on different multicast groups. The repair window is set
-        to 200 ms.</t>
+        <t>In this example, we have one source video stream (ssrc:1234) and one
+        FEC repair stream (ssrc:2345). We form one FEC group with the
+        "a=ssrc-group:FEC-FR 1234 2345" line. The source and repair streams are
+        multiplexed on different SSRCs. The repair window is set to 200 ms.</t>
 
         <t><figure>
             <preamble/>
 
-            <artwork><![CDATA[     v=0
+            <artwork><![CDATA[     
+     v=0 
      o=ali 1122334455 1122334466 IN IP4 fec.example.com
      s=1-D Interleaved Parity FEC Example
      t=0 0
-     a=group:FEC S1 R1
-     m=video 30000 RTP/AVP 100
+     m=video 30000 RTP/AVP 100 110
      c=IN IP4 233.252.0.1/127
      a=rtpmap:100 MP2T/90000
-     a=mid:S1
-     m=application 30000 RTP/AVP 110
-     c=IN IP4 233.252.0.2/127
      a=rtpmap:110 interleaved-parityfec/90000
      a=fmtp:110 L:5; D:10; ToP:0; repair-window:200000
-     a=mid:R1
+     a=ssrc:1234
+     a=ssrc:2345
+     a=ssrc-group:FEC-FR 1234 2345
 ]]></artwork>
           </figure></t>
       </section>
 
       <section title="Example SDP for 2-D Parity FEC Protection">
-        <t>In this example, we have one source video stream (mid:S1) and two
-        FEC repair streams (mid:R1 and mid:R2). We form one FEC group with the
-        "a=group:FEC S1 R1 R2" line. The source and repair streams are sent to
-        the same port on different multicast groups. The repair window is set
-        to 200 ms.</t>
+        <t>In this example, we have one source video stream (ssrc:1234) and two
+        FEC repair streams (ssrc:2345 and ssrc:3456). We form one FEC group with the
+        "a=ssrc-group:FEC-FR 1234 2345 3456" line. The source and repair streams are
+        multiplexed on different SSRCs. The repair window is set to 200 ms.</t>
 
         <t><figure>
             <preamble/>
 
-            <artwork><![CDATA[     v=0
+            <artwork><![CDATA[     
+     v=0
      o=ali 1122334455 1122334466 IN IP4 fec.example.com
      s=2-D Parity FEC Example
      t=0 0
-     a=group:FEC S1 R1 R2
-     m=video 30000 RTP/AVP 100
+     m=video 30000 RTP/AVP 100 110 111
      c=IN IP4 233.252.0.1/127
      a=rtpmap:100 MP2T/90000
-     a=mid:S1
-     m=application 30000 RTP/AVP 110
-     c=IN IP4 233.252.0.2/127
      a=rtpmap:110 interleaved-parityfec/90000
      a=fmtp:110 L:5; D:10; ToP:2; repair-window:200000
-     a=mid:R1
-     m=application 30000 RTP/AVP 111
-     c=IN IP4 233.252.0.3/127
      a=rtpmap:111 non-interleaved-parityfec/90000
      a=fmtp:111 L:5; D:10; ToP:2; repair-window:200000
-     a=mid:R2
+     a=ssrc:1234
+     a=ssrc:2345
+     a=ssrc:3456
+     a=ssrc-group:FEC-FR 1234 2345 3456
 ]]></artwork>
 
             <postamble/>
