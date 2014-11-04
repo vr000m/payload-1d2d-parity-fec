@@ -7,9 +7,9 @@
 #             echo Working directory is dirty >&2; \
 #         fi
 
-DRAFTS =	draft-singh-payload-1d2d-parity-scheme.txt \
-          draft-singh-payload-1d2d-parity-scheme.html \
-					draft-singh-payload-1d2d-parity-scheme.pdf
+DRAFTS =	draft-singh-payload-flexible-fec-scheme.txt \
+          draft-singh-payload-flexible-fec-scheme.html \
+					draft-singh-payload-flexible-fec-scheme.pdf
 CMDSEP = ;
 #VERSION = 00 
 
