@@ -7,11 +7,11 @@
 #             echo Working directory is dirty >&2; \
 #         fi
 
-DRAFTS =	draft-singh-payload-flexible-fec-scheme.txt \
-          draft-singh-payload-flexible-fec-scheme.html \
-					draft-singh-payload-flexible-fec-scheme.pdf
+DRAFTS =	draft-ietf-payload-flexible-fec-scheme.txt \
+          draft-ietf-payload-flexible-fec-scheme.html \
+					draft-ietf-payload-flexible-fec-scheme.pdf
 CMDSEP = ;
-#VERSION = 00 
+#VERSION = 00
 
 all: $(DRAFTS)
 
