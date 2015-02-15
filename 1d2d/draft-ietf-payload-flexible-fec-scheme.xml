@@ -29,12 +29,11 @@
 <?rfc sortrefs="yes" ?>
 <?rfc colonspace='yes' ?>
 <?rfc tocindent='yes' ?>
-<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-00"
+<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-01"
      ipr="trust200902">
   <front>
     <title abbrev="RTP Payload Format for Parity FEC">RTP Payload Format for
-    Non-Interleaved and Interleaved Parity Forward Error Correction
-    (FEC)</title>
+    Flexible Forward Error Correction (FEC)</title>
 
     <author fullname="Varun Singh" initials="V." surname="Singh">
       <organization>Aalto University</organization>
