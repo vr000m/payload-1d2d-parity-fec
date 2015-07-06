@@ -3,7 +3,7 @@
 <!ENTITY __reference.RFC.2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY __reference.RFC.3550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3550.xml">
 <!ENTITY __reference.RFC.4566 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4566.xml">
-<!ENTITY __reference.RFC.4756 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4756.xml">
+<!ENTITY __reference.RFC.5956 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5956.xml">
 <!ENTITY __reference.RFC.2733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2733.xml">
 <!ENTITY __reference.RFC.5109 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5109.xml">
 <!ENTITY __reference.RFC.3555 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3555.xml">
@@ -29,31 +29,26 @@
 <?rfc sortrefs="yes" ?>
 <?rfc colonspace='yes' ?>
 <?rfc tocindent='yes' ?>
-<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-01"
+<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-02"
      ipr="trust200902">
   <front>
     <title abbrev="RTP Payload Format for Parity FEC">RTP Payload Format for
     Flexible Forward Error Correction (FEC)</title>
 
     <author fullname="Varun Singh" initials="V." surname="Singh">
-      <organization>Aalto University</organization>
+      <organization>Nemu Dialogue System Oy</organization>
 
       <address>
         <postal>
-          <street/>
-
-          <city>Espoo</city>
-
+          <street>Itamerenkatu 5</street>
+          <city>Helsinki</city>
           <region>FIN</region>
-
-          <code/>
-
+          <code>00180</code>
           <country>Finland</country>
         </postal>
-
         <phone/>
 
-        <email>varun@comnet.tkk.fi</email>
+        <email>varun@callstats.io</email>
       </address>
     </author>
 
@@ -63,13 +58,9 @@
       <address>
         <postal>
           <street>181 Bay Street</street>
-
           <city>Toronto</city>
-
           <region>ON</region>
-
           <code>M5J 2T3</code>
-
           <country>Canada</country>
         </postal>
 
@@ -83,23 +74,18 @@
       <address>
         <postal>
           <street/>
-
           <city>Raleigh</city>
-
           <region>NC</region>
-
           <code/>
-
           <country>USA</country>
         </postal>
 
         <phone/>
-
         <email>mzanaty@cisco.com</email>
       </address>
     </author>
 
-    <date year="2015"/>
+    <date />
 
     <workgroup>PAYLOAD</workgroup>
 
@@ -1713,7 +1699,7 @@ When N > 0:
     <section anchor="sec_sdp" title="SDP Examples">
       <t>This section provides two SDP <xref target="RFC4566"/> examples. The
       examples use the FEC grouping semantics defined in <xref
-      target="RFC4756"/>.</t>
+      target="RFC5956"/>.</t>
 
       <section title="Example SDP for 1-D Parity FEC Protection">
         <t>In this example, we have one source video stream (ssrc:1234) and one
@@ -1901,7 +1887,7 @@ When N > 0:
 
       &__reference.RFC.3555;
 
-      &__reference.RFC.4756;
+      &__reference.RFC.5956;
 
       &__reference.RFC.3264;
 

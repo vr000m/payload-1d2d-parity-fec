@@ -3,17 +3,16 @@
 
 
 PAYLOAD                                                         V. Singh
-Internet-Draft                                          Aalto University
+Internet-Draft                                   Nemu Dialogue System Oy
 Intended status: Standards Track                                A. Begen
-Expires: August 18, 2015                                   Cisco Systems
+Expires: January 7, 2016                                   Cisco Systems
                                                                M. Zanaty
                                                                    Cisco
-                                                       February 14, 2015
+                                                            July 6, 2015
 
 
- RTP Payload Format for Non-Interleaved and Interleaved Parity Forward
-                         Error Correction (FEC)
-               draft-ietf-payload-flexible-fec-scheme-00
+     RTP Payload Format for Flexible Forward Error Correction (FEC)
+               draft-ietf-payload-flexible-fec-scheme-02
 
 Abstract
 
@@ -49,13 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 18, 2015.
+   This Internet-Draft will expire on January 7, 2016.
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 1]
+
+Singh, et al.            Expires January 7, 2016                [Page 1]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 2]
+Singh, et al.            Expires January 7, 2016                [Page 2]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
        6.3.4.  Iterative Decoding Algorithm for the 2-D Parity FEC
@@ -165,9 +165,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 3]
+Singh, et al.            Expires January 7, 2016                [Page 3]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Note that the source and repair packets belong to different source
@@ -221,9 +221,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 4]
+Singh, et al.            Expires January 7, 2016                [Page 4]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    however, it should not register a FEC decoding failure until it waits
@@ -277,9 +277,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 5]
+Singh, et al.            Expires January 7, 2016                [Page 5]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
        +-------------+ +-------------+ +-------------+     +-------+
@@ -333,9 +333,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 6]
+Singh, et al.            Expires January 7, 2016                [Page 6]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
                      +---+                +---+  +===+
@@ -389,9 +389,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 7]
+Singh, et al.            Expires January 7, 2016                [Page 7]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    packets, thus increasing the FEC overhead, 2-D FEC provides superior
@@ -445,9 +445,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 8]
+Singh, et al.            Expires January 7, 2016                [Page 8]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
                      +---+  +---+         +---+
@@ -501,9 +501,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015                [Page 9]
+Singh, et al.            Expires January 7, 2016                [Page 9]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 3.  Definitions and Notations
@@ -557,9 +557,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 10]
+Singh, et al.            Expires January 7, 2016               [Page 10]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
             +------------------------------+
@@ -613,9 +613,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 11]
+Singh, et al.            Expires January 7, 2016               [Page 11]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
       In some networks, the RTP Source, which produces the source
@@ -669,9 +669,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 12]
+Singh, et al.            Expires January 7, 2016               [Page 12]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    o  The P, X, CC, M and PT recovery fields are used to determine the
@@ -725,9 +725,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 13]
+Singh, et al.            Expires January 7, 2016               [Page 13]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    does not provide flexibility to represent other protection patterns
@@ -781,9 +781,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 14]
+Singh, et al.            Expires January 7, 2016               [Page 14]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Encoding considerations: This media type is framed (See Section 4.8
@@ -837,9 +837,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 15]
+Singh, et al.            Expires January 7, 2016               [Page 15]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    o  D: Number of rows of the source block.  D is a positive integer.
@@ -893,9 +893,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 16]
+Singh, et al.            Expires January 7, 2016               [Page 16]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 5.1.3.  Registration of text/non-interleaved-parityfec
@@ -949,9 +949,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 17]
+Singh, et al.            Expires January 7, 2016               [Page 17]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Person & email address to contact for further information: Varun
@@ -1005,9 +1005,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 18]
+Singh, et al.            Expires January 7, 2016               [Page 18]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Security considerations: See Section 9 of [RFCXXXX].
@@ -1061,9 +1061,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 19]
+Singh, et al.            Expires January 7, 2016               [Page 19]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    o  ToP: Type of the protection applied by the sender: 0 for 1-D
@@ -1117,9 +1117,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 20]
+Singh, et al.            Expires January 7, 2016               [Page 20]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 5.1.6.  Registration of video/interleaved-parityfec
@@ -1173,9 +1173,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 21]
+Singh, et al.            Expires January 7, 2016               [Page 21]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Person & email address to contact for further information: Varun
@@ -1229,9 +1229,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 22]
+Singh, et al.            Expires January 7, 2016               [Page 22]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Security considerations: See Section 9 of [RFCXXXX].
@@ -1285,9 +1285,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 23]
+Singh, et al.            Expires January 7, 2016               [Page 23]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    o  ToP: Type of the protection applied by the sender: 0 for 1-D
@@ -1341,9 +1341,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 24]
+Singh, et al.            Expires January 7, 2016               [Page 24]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 5.2.  Mapping to SDP Parameters
@@ -1397,9 +1397,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 25]
+Singh, et al.            Expires January 7, 2016               [Page 25]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
       The upper limit of the repair-window size does not depend on the L
@@ -1453,9 +1453,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 26]
+Singh, et al.            Expires January 7, 2016               [Page 26]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    operation on the bit strings that are generated from the individual
@@ -1509,9 +1509,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 27]
+Singh, et al.            Expires January 7, 2016               [Page 27]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    As described in Section 4.2, the SN base field of the FEC header MUST
@@ -1565,9 +1565,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 28]
+Singh, et al.            Expires January 7, 2016               [Page 28]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    one repair packet for the FEC protection applied over a row.  Recall
@@ -1621,9 +1621,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 29]
+Singh, et al.            Expires January 7, 2016               [Page 29]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Mathematically, for any received repair packet, p*, we can determine
@@ -1677,9 +1677,9 @@ When N > 0:
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 30]
+Singh, et al.            Expires January 7, 2016               [Page 30]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    11.  Set the SN field in the new packet to SEQNUM.  Skip the next 16
@@ -1733,9 +1733,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 31]
+Singh, et al.            Expires January 7, 2016               [Page 31]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 6.3.4.  Iterative Decoding Algorithm for the 2-D Parity FEC Protection
@@ -1789,9 +1789,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 32]
+Singh, et al.            Expires January 7, 2016               [Page 32]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
                                    +---+  +---+  +===+
@@ -1845,9 +1845,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 33]
+Singh, et al.            Expires January 7, 2016               [Page 33]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
                      +---+  +---+  +---+  +---+  +===+
@@ -1871,7 +1871,7 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 7.  SDP Examples
 
    This section provides two SDP [RFC4566] examples.  The examples use
-   the FEC grouping semantics defined in [RFC4756].
+   the FEC grouping semantics defined in [RFC5956].
 
 7.1.  Example SDP for 1-D Parity FEC Protection
 
@@ -1901,9 +1901,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 34]
+Singh, et al.            Expires January 7, 2016               [Page 34]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 7.2.  Example SDP for 2-D Parity FEC Protection
@@ -1957,9 +1957,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 35]
+Singh, et al.            Expires January 7, 2016               [Page 35]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    However, it MAY still continue to use FEC if considered for bandwidth
@@ -2013,9 +2013,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 36]
+Singh, et al.            Expires January 7, 2016               [Page 36]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
 11.  Acknowledgments
@@ -2069,9 +2069,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 37]
+Singh, et al.            Expires January 7, 2016               [Page 37]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    [RFC3264]  Rosenberg, J. and H. Schulzrinne, "An Offer/Answer Model
@@ -2088,8 +2088,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
    [RFC4566]  Handley, M., Jacobson, V., and C. Perkins, "SDP: Session
               Description Protocol", RFC 4566, July 2006.
 
-   [RFC4756]  Li, A., "Forward Error Correction Grouping Semantics in
-              Session Description Protocol", RFC 4756, November 2006.
+   [RFC5956]  Begen, A., "Forward Error Correction Grouping Semantics in
+              the Session Description Protocol", RFC 5956, September
+              2010.
 
    [RFC6363]  Watson, M., Begen, A., and V. Roca, "Forward Error
               Correction (FEC) Framework", RFC 6363, October 2011.
@@ -2124,10 +2125,9 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-
-Singh, et al.            Expires August 18, 2015               [Page 38]
+Singh, et al.            Expires January 7, 2016               [Page 38]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    [RFC2733]  Rosenberg, J. and H. Schulzrinne, "An RTP Payload Format
@@ -2157,11 +2157,12 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 Authors' Addresses
 
    Varun Singh
-   Aalto University
-   Espoo, FIN
+   Nemu Dialogue System Oy
+   Itamerenkatu 5
+   Helsinki, FIN  00180
    Finland
 
-   Email: varun@comnet.tkk.fi
+   Email: varun@callstats.io
 
 
    Ali Begen
@@ -2180,10 +2181,9 @@ Authors' Addresses
 
 
 
-
-Singh, et al.            Expires August 18, 2015               [Page 39]
+Singh, et al.            Expires January 7, 2016               [Page 39]
 
-Internet-Draft      RTP Payload Format for Parity FEC      February 2015
+Internet-Draft      RTP Payload Format for Parity FEC          July 2015
 
 
    Mo Zanaty
@@ -2237,4 +2237,4 @@ Internet-Draft      RTP Payload Format for Parity FEC      February 2015
 
 
 
-Singh, et al.            Expires August 18, 2015               [Page 40]
+Singh, et al.            Expires January 7, 2016               [Page 40]
