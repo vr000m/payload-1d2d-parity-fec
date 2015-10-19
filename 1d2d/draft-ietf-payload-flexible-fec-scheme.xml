@@ -29,7 +29,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc colonspace='yes' ?>
 <?rfc tocindent='yes' ?>
-<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-02"
+<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-01"
      ipr="trust200902">
   <front>
     <title abbrev="RTP Payload Format for Parity FEC">RTP Payload Format for
@@ -40,10 +40,10 @@
 
       <address>
         <postal>
-          <street>Itamerenkatu 5</street>
+          <street>Runeberginkatu 4c A 4 </street>
           <city>Helsinki</city>
           <region>FIN</region>
-          <code>00180</code>
+          <code>00100</code>
           <country>Finland</country>
         </postal>
         <phone/>
@@ -53,18 +53,18 @@
     </author>
 
     <author fullname="Ali Begen" initials="A." surname="Begen">
-      <organization>Cisco Systems</organization>
+      <organization/>
 
       <address>
         <postal>
-          <street>181 Bay Street</street>
-          <city>Toronto</city>
-          <region>ON</region>
-          <code>M5J 2T3</code>
-          <country>Canada</country>
+          <street/>
+          <city/>
+          <region/>
+          <code/>
+          <country/>
         </postal>
 
-        <email>abegen@cisco.com</email>
+        <email>acbegen@gmail.com </email>
       </address>
     </author>
 
@@ -85,6 +85,22 @@
       </address>
     </author>
 
+    <author fullname="Giridhar Mandyam" initials="G." surname="Mandyam">
+      <organization>Qualcomm Innovation Center</organization>
+
+      <address>
+        <postal>
+          <street>5775 Morehouse Drive</street>
+          <city>San Diego</city>
+          <region>CA</region>
+          <code>92121</code>
+          <country>USA</country>
+        </postal>
+
+        <phone>+1 858 651 7200</phone>
+        <email>mandyam@quicinc.com</email>
+      </address>
+    </author>
     <date />
 
     <workgroup>PAYLOAD</workgroup>
@@ -532,17 +548,23 @@ would imply 2-D FEC! -->
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|MSK|P|X|  CC   |M| PT recovery |            SN base            |
+|MSK|P|X|  CC   |M| PT recovery |        length recovery        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                          TS recovery                          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        length recovery        |M or Mask[8-15]| N or Mask[0-7]|
+|   SSRC Count  |                    reserved                   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             SSRC_i                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|           SN base_i           |M or Mask[8-15]| N or Mask[0-7]|
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                    Mask [16-47] (optional)                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                                                               |
 +                    Mask [48-111] (optional)                   +
 |                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                     ... next in SSRC_i ...                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
           </figure></t>
@@ -595,20 +617,36 @@ OLD FORMAT:
             <t>The P, X, CC, M and PT recovery fields are used to determine
             the corresponding fields of the recovered packets.</t>
 
-            <t>The SN base field is used to indicate the lowest sequence
-            number, taking wrap around into account, of those source packets
-            protected by this repair packet.</t>
+            <t>The Length recovery (16 bits) field is used to determine the
+            length of the recovered packets.</t>
 
-            <t>The TS recovery field is used to determine the timestamp of the
-            recovered packets.</t>
+            <t>The TS recovery (32 bits) field is used to determine the timestamp
+            of the recovered packets.</t>
 
-            <t>The Length recovery field is used to determine the length of
-            the recovered packets.</t>
+            <t>The SSRC count (8 bits) field describes the number of SSRCs
+            protected by the FEC packet. 0 is not a valid value, and the packet
+            MUST be ignored.</t>
 
-            <t>Mask is a run-length encoding of packets protected by the FEC
-            packet. Where a bit i set to 1 indicates that the source packet
-            with sequence number (SN base + i) is protected by this FEC
-            packet.</t>
+            <t>The Reserved (24 bits) field are reserved for future use. They
+            MUST be set to zero by senders and ignored by receivers.</t>
+
+            <t>The SSRC_i (32 bits) field describes the SSRC of the packets
+            protected by this particular FEC packet. If a FEC packet contains
+            protects multiple SSRCs (indicated by the SSRC Count > 1), there
+            will be multiple blocks of data containing the SSRC, SN base
+            and Mask fields.</t>
+
+            <t>Editor's note: An alternate stream ID may replace SSRC.</t>
+
+             <t>The SN base_i (16 bits) field indicates the lowest sequence
+            number, taking wrap around into account, of the source packets
+            for a particular SSSRC (indicated in SSRC_i) protected by this
+            repair packet.</t>
+
+            <t>Mask is a run-length encoding of packets for a particular
+            SSRC_i protected by the FEC packet. Where a bit j set to 1
+            indicates that the source packet with sequence number
+            (SN base_i + j) is protected by this FEC packet.</t>
 
             <t>If the the MSK field is set to 11, it indicates the offset of
             packets protected by this FEC packet. Consequently, the following
@@ -617,7 +655,7 @@ OLD FORMAT:
                 title="Interpreting the M and N field values">
                 <artwork><![CDATA[
 If M=0, N=0,  regular protection pattern code with the values of
-              L and D are indicared in the SDP description.
+              L and D are indicated in the SDP description.
 If M>0, N=0,  indicates a non-interleaved (row) FEC of M packets
               starting at SN base.
               Hence, FEC = SN, SN+1, SN+2, ... , SN+(M-1), SN+M.
@@ -627,6 +665,11 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 ]]></artwork>
               </figure></t>
           </list></t>
+
+        <t> By setting SSRC count to 1, M=1, and N&lt;=1, the FEC protects only one
+          packet, i.e., the FEC payload carries just the packet indicated by
+          SN Base_i, which is effectively retransmitting the packet.
+        </t>
 
         <t>The details on setting the fields in the FEC header are provided in
         <xref target="sec_repair_packet_construction"/>.</t>
@@ -674,10 +717,10 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
         "XXXX" with the number of this document prior to publication as an
         RFC.</t>
 
-        <section title="Registration of audio/non-interleaved-parityfec">
+        <section title="Registration of audio/flexfec">
           <t>Type name: audio</t>
 
-          <t>Subtype name: non-interleaved-parityfec</t>
+          <t>Subtype name: flexfec</t>
 
           <t>Required parameters:</t>
 
@@ -687,21 +730,28 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               operations. However, it is RECOMMENDED to select the rate that
               matches the rate of the protected source RTP stream.</t>
 
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
               <t>repair-window: The time that spans the source packets and the
               corresponding repair packets. The size of the repair window is
               specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
+            </list></t>
+
+          <t> Optional parameters:</t>
+
+          <t><list style="symbols">
+            <t>L: indicates the number of columns of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            L is a positive integer.</t>
+
+            <t>D: indicates the number of rows of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            D is a positive integer.</t>
+
+            <t>ToP: indicates the type of protection applied by the sender:
+              0 for 1-D interleaved FEC protection,
+              1 for 1-D non-interleaved FEC protection, and
+              2 for 2-D parity FEC protection.
+            The ToP value of 3 is reserved for future uses.</t>
+          </list></t>
 
           <t>Encoding considerations: This media type is framed (See Section
           4.8 in the template document <xref target="RFC6838" />) and
@@ -740,10 +790,10 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
-        <section title="Registration of video/non-interleaved-parityfec">
+        <section title="Registration of video/flexfec">
           <t>Type name: video</t>
 
-          <t>Subtype name: non-interleaved-parityfec</t>
+          <t>Subtype name: flexfec</t>
 
           <t>Required parameters:</t>
 
@@ -753,21 +803,28 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               operations. However, it is RECOMMENDED to select the rate that
               matches the rate of the protected source RTP stream.</t>
 
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
               <t>repair-window: The time that spans the source packets and the
               corresponding repair packets. The size of the repair window is
               specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
+            </list></t>
+
+          <t> Optional parameters:</t>
+
+          <t><list style="symbols">
+            <t>L: indicates the number of columns of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            L is a positive integer.</t>
+
+            <t>D: indicates the number of rows of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            D is a positive integer.</t>
+
+            <t>ToP: indicates the type of protection applied by the sender:
+              0 for 1-D interleaved FEC protection,
+              1 for 1-D non-interleaved FEC protection, and
+              2 for 2-D parity FEC protection.
+            The ToP value of 3 is reserved for future uses.</t>
+          </list></t>
 
           <t>Encoding considerations: This media type is framed (See Section
           4.8 in the template document <xref target="RFC6838" />) and
@@ -806,10 +863,10 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
-        <section title="Registration of text/non-interleaved-parityfec">
+        <section title="Registration of text/flexfec">
           <t>Type name: text</t>
 
-          <t>Subtype name: non-interleaved-parityfec</t>
+          <t>Subtype name: flexfec</t>
 
           <t>Required parameters:</t>
 
@@ -819,21 +876,28 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               operations. However, it is RECOMMENDED to select the rate that
               matches the rate of the protected source RTP stream.</t>
 
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
               <t>repair-window: The time that spans the source packets and the
               corresponding repair packets. The size of the repair window is
               specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
+            </list></t>
+
+          <t> Optional parameters:</t>
+
+          <t><list style="symbols">
+            <t>L: indicates the number of columns of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            L is a positive integer.</t>
+
+            <t>D: indicates the number of rows of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            D is a positive integer.</t>
+
+            <t>ToP: indicates the type of protection applied by the sender:
+              0 for 1-D interleaved FEC protection,
+              1 for 1-D non-interleaved FEC protection, and
+              2 for 2-D parity FEC protection.
+            The ToP value of 3 is reserved for future uses.</t>
+          </list></t>
 
           <t>Encoding considerations: This media type is framed (See Section
           4.8 in the template document <xref target="RFC6838" />) and
@@ -872,10 +936,10 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
           <t>Provisional registration? (standards tree only): Yes.</t>
         </section>
 
-        <section title="Registration of application/non-interleaved-parityfec">
+        <section title="Registration of application/flexfec">
           <t>Type name: application</t>
 
-          <t>Subtype name: non-interleaved-parityfec</t>
+          <t>Subtype name: flexfec</t>
 
           <t>Required parameters:</t>
 
@@ -885,21 +949,28 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
               operations. However, it is RECOMMENDED to select the rate that
               matches the rate of the protected source RTP stream.</t>
 
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
               <t>repair-window: The time that spans the source packets and the
               corresponding repair packets. The size of the repair window is
               specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
+            </list></t>
+
+          <t> Optional parameters:</t>
+
+          <t><list style="symbols">
+            <t>L: indicates the number of columns of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            L is a positive integer.</t>
+
+            <t>D: indicates the number of rows of the source block that are
+            protected by this FEC block and it applies to all the source SSRCs.
+            D is a positive integer.</t>
+
+            <t>ToP: indicates the type of protection applied by the sender:
+              0 for 1-D interleaved FEC protection,
+              1 for 1-D non-interleaved FEC protection, and
+              2 for 2-D parity FEC protection.
+            The ToP value of 3 is reserved for future uses.</t>
+          </list></t>
 
           <t>Encoding considerations: This media type is framed (See Section
           4.8 in the template document <xref target="RFC6838" />) and
@@ -907,270 +978,6 @@ If M>0, N>0,  indicates interleaved (column) FEC of every M packet
 
           <t>Security considerations: See <xref
           target="sec_security_considerations" /> of [RFCXXXX].</t>
-
-          <t>Interoperability considerations: None.</t>
-
-          <t>Published specification: [RFCXXXX].</t>
-
-          <t>Applications that use this media type: Multimedia applications
-          that want to improve resiliency against packet loss by sending
-          redundant data in addition to the source media.</t>
-
-          <t>Fragment identifier considerations: None.</t>
-
-          <t>Additional information: None.</t>
-
-          <t>Person &amp; email address to contact for further information:
-          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
-          Payloads Working Group.</t>
-
-          <t>Intended usage: COMMON.</t>
-
-          <t>Restriction on usage: This media type depends on RTP framing, and
-          hence, is only defined for transport via RTP <xref
-          target="RFC3550" />.</t>
-
-          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
-
-          <t>Change controller: IETF Audio/Video Transport Working Group
-          delegated from the IESG.</t>
-
-          <t>Provisional registration? (standards tree only): Yes.</t>
-        </section>
-
-        <section title="Registration of audio/interleaved-parityfec">
-          <t>Type name: audio</t>
-
-          <t>Subtype name: interleaved-parityfec</t>
-
-          <t>Required parameters:</t>
-
-          <t><list style="symbols">
-              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
-              larger than 1000 Hz to provide sufficient resolution to RTCP
-              operations. However, it is RECOMMENDED to select the rate that
-              matches the rate of the protected source RTP stream.</t>
-
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
-              <t>repair-window: The time that spans the source packets and the
-              corresponding repair packets. The size of the repair window is
-              specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
-
-          <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC6838" />) and
-          contains binary data.</t>
-
-          <t>Security considerations: See <xref
-          target="sec_security_considerations" /> of [RFCXXXX].</t>
-
-          <t>Interoperability considerations: None.</t>
-
-          <t>Published specification: [RFCXXXX].</t>
-
-          <t>Applications that use this media type: Multimedia applications
-          that want to improve resiliency against packet loss by sending
-          redundant data in addition to the source media.</t>
-
-          <t>Fragment identifier considerations: None.</t>
-
-          <t>Additional information: None.</t>
-
-          <t>Person &amp; email address to contact for further information:
-          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
-          Payloads Working Group.</t>
-
-          <t>Intended usage: COMMON.</t>
-
-          <t>Restriction on usage: This media type depends on RTP framing, and
-          hence, is only defined for transport via RTP <xref
-          target="RFC3550" />.</t>
-
-          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
-
-          <t>Change controller: IETF Audio/Video Transport Working Group
-          delegated from the IESG.</t>
-
-          <t>Provisional registration? (standards tree only): Yes.</t>
-        </section>
-
-        <section title="Registration of video/interleaved-parityfec">
-          <t>Type name: video</t>
-
-          <t>Subtype name: interleaved-parityfec</t>
-
-          <t>Required parameters:</t>
-
-          <t><list style="symbols">
-              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
-              larger than 1000 Hz to provide sufficient resolution to RTCP
-              operations. However, it is RECOMMENDED to select the rate that
-              matches the rate of the protected source RTP stream.</t>
-
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
-              <t>repair-window: The time that spans the source packets and the
-              corresponding repair packets. The size of the repair window is
-              specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
-
-          <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC6838" />) and
-          contains binary data.</t>
-
-          <t>Security considerations: See <xref
-          target="sec_security_considerations" /> of [RFCXXXX].</t>
-
-          <t>Interoperability considerations: None.</t>
-
-          <t>Published specification: [RFCXXXX].</t>
-
-          <t>Applications that use this media type: Multimedia applications
-          that want to improve resiliency against packet loss by sending
-          redundant data in addition to the source media.</t>
-
-          <t>Fragment identifier considerations: None.</t>
-
-          <t>Additional information: None.</t>
-
-          <t>Person &amp; email address to contact for further information:
-          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
-          Payloads Working Group.</t>
-
-          <t>Intended usage: COMMON.</t>
-
-          <t>Restriction on usage: This media type depends on RTP framing, and
-          hence, is only defined for transport via RTP <xref
-          target="RFC3550" />.</t>
-
-          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
-
-          <t>Change controller: IETF Audio/Video Transport Working Group
-          delegated from the IESG.</t>
-
-          <t>Provisional registration? (standards tree only): Yes.</t>
-        </section>
-
-        <section title="Registration of text/interleaved-parityfec">
-          <t>Type name: text</t>
-
-          <t>Subtype name: interleaved-parityfec</t>
-
-          <t>Required parameters:</t>
-
-          <t><list style="symbols">
-              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
-              larger than 1000 Hz to provide sufficient resolution to RTCP
-              operations. However, it is RECOMMENDED to select the rate that
-              matches the rate of the protected source RTP stream.</t>
-
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
-              <t>repair-window: The time that spans the source packets and the
-              corresponding repair packets. The size of the repair window is
-              specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
-
-          <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC6838" />) and
-          contains binary data.</t>
-
-          <t>Security considerations: See <xref
-          target="sec_security_considerations"/> of [RFCXXXX].</t>
-
-          <t>Interoperability considerations: None.</t>
-
-          <t>Published specification: [RFCXXXX].</t>
-
-          <t>Applications that use this media type: Multimedia applications
-          that want to improve resiliency against packet loss by sending
-          redundant data in addition to the source media.</t>
-
-          <t>Fragment identifier considerations: None.</t>
-
-          <t>Additional information: None.</t>
-
-          <t>Person &amp; email address to contact for further information:
-          Varun Singh &lt;varun.singh@iki.fi&gt; and IETF Audio/Video Transport
-          Payloads Working Group.</t>
-
-          <t>Intended usage: COMMON.</t>
-
-          <t>Restriction on usage: This media type depends on RTP framing, and
-          hence, is only defined for transport via RTP <xref
-          target="RFC3550"/>.</t>
-
-          <t>Author: Varun Singh &lt;varun.singh@iki.fi&gt;.</t>
-
-          <t>Change controller: IETF Audio/Video Transport Working Group
-          delegated from the IESG.</t>
-
-          <t>Provisional registration? (standards tree only): Yes.</t>
-        </section>
-
-        <section title="Registration of application/interleaved-parityfec">
-          <t>Type name: application</t>
-
-          <t>Subtype name: interleaved-parityfec</t>
-
-          <t>Required parameters:</t>
-
-          <t><list style="symbols">
-              <t>rate: The RTP timestamp (clock) rate. The rate SHALL be
-              larger than 1000 Hz to provide sufficient resolution to RTCP
-              operations. However, it is RECOMMENDED to select the rate that
-              matches the rate of the protected source RTP stream.</t>
-
-              <t>L: Number of columns of the source block. L is a positive
-              integer.</t>
-
-              <t>D: Number of rows of the source block. D is a positive
-              integer.</t>
-
-              <t>ToP: Type of the protection applied by the sender: 0 for 1-D
-              interleaved FEC protection, 1 for 1-D non-interleaved FEC
-              protection, and 2 for 2-D parity FEC protection. The ToP value
-              of 3 is reserved for future uses.</t>
-
-              <t>repair-window: The time that spans the source packets and the
-              corresponding repair packets. The size of the repair window is
-              specified in microseconds.</t>
-            </list>Optional parameters: None.</t>
-
-          <t>Encoding considerations: This media type is framed (See Section
-          4.8 in the template document <xref target="RFC6838"/>) and
-          contains binary data.</t>
-
-          <t>Security considerations: See <xref
-          target="sec_security_considerations"/> of [RFCXXXX].</t>
 
           <t>Interoperability considerations: None.</t>
 
@@ -1701,9 +1508,34 @@ When N > 0:
       examples use the FEC grouping semantics defined in <xref
       target="RFC5956"/>.</t>
 
-      <section title="Example SDP for 1-D Parity FEC Protection">
+      <section title="Example SDP for Flexible FEC Protection with in-band SSRC mapping">
+        <t>In this example, we have one source video stream and one FEC repair stream.
+        The source and repair streams are multiplexed on different SSRCs.
+        The repair window is set to 200 ms.</t>
+
+        <t><figure>
+            <preamble/>
+
+            <artwork><![CDATA[
+     v=0
+     o=mo 1122334455 1122334466 IN IP4 fec.example.com
+     s=FlexFEC minimal SDP signalling Example
+     t=0 0
+     m=video 30000 RTP/AVP 96 98
+     c=IN IP4 143.163.151.157
+     a=rtpmap:96 VP8/90000
+     a=rtpmap:98 flexfec/90000
+     a=fmtp:98; repair-window=200ms
+]]></artwork>
+          </figure></t>
+      </section>
+
+
+<!--  Editor's note do we need a codepoint in SDP for what is used for FEC? code=xor -->
+
+<section title="Example SDP for Flex FEC Protection with explicit signalling in the SDP ">
         <t>In this example, we have one source video stream (ssrc:1234) and one
-        FEC repair stream (ssrc:2345). We form one FEC group with the
+        FEC repair streams (ssrc:2345). We form one FEC group with the
         "a=ssrc-group:FEC-FR 1234 2345" line. The source and repair streams are
         multiplexed on different SSRCs. The repair window is set to 200 ms.</t>
 
@@ -1713,56 +1545,20 @@ When N > 0:
             <artwork><![CDATA[
      v=0
      o=ali 1122334455 1122334466 IN IP4 fec.example.com
-     s=1-D Interleaved Parity FEC Example
+     s=2-D Parity FEC with no in band signalling Example
      t=0 0
      m=video 30000 RTP/AVP 100 110
      c=IN IP4 233.252.0.1/127
      a=rtpmap:100 MP2T/90000
-     a=rtpmap:110 interleaved-parityfec/90000
-     a=fmtp:110 L:5; D:10; ToP:0; repair-window:200000
+     a=rtpmap:110 flexfec/90000
+     a=fmtp:110 L:5; D:10; ToP:2; repair-window:200000
      a=ssrc:1234
      a=ssrc:2345
      a=ssrc-group:FEC-FR 1234 2345
 ]]></artwork>
-          </figure></t>
-      </section>
-
-      <section title="Example SDP for 2-D Parity FEC Protection">
-        <t>In this example, we have one source video stream (ssrc:1234) and two
-        FEC repair streams (ssrc:2345 and ssrc:3456). We form one FEC group with the
-        "a=ssrc-group:FEC-FR 1234 2345 3456" line. The source and repair streams are
-        multiplexed on different SSRCs. The repair window is set to 200 ms.</t>
-
-        <t><figure>
-            <preamble/>
-
-            <artwork><![CDATA[
-     v=0
-     o=ali 1122334455 1122334466 IN IP4 fec.example.com
-     s=2-D Parity FEC Example
-     t=0 0
-     m=video 30000 RTP/AVP 100 110 111
-     c=IN IP4 233.252.0.1/127
-     a=rtpmap:100 MP2T/90000
-     a=rtpmap:110 interleaved-parityfec/90000
-     a=fmtp:110 L:5; D:10; ToP:2; repair-window:200000
-     a=rtpmap:111 non-interleaved-parityfec/90000
-     a=fmtp:111 L:5; D:10; ToP:2; repair-window:200000
-     a=ssrc:1234
-     a=ssrc:2345
-     a=ssrc:3456
-     a=ssrc-group:FEC-FR 1234 2345 3456
-]]></artwork>
 
             <postamble/>
           </figure></t>
-
-        <t>Note that the sender might be generating two repair flows carrying
-        non-interleaved and interleaved FEC packets, however the receiver
-        might be interested only in the interleaved FEC packets. The receiver
-        can identify the repair flow carrying the desired repair data by
-        checking the payload types associated with each repair flow described
-        in the SDP description.</t>
       </section>
     </section>
 
@@ -1842,6 +1638,13 @@ When N > 0:
 
       <t> Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+
+      <section title="draft-ietf-payload-flexible-fec-scheme-01">
+        <t>FEC packet format changed as per discussions in IETF93, Prague.</t>
+        <t>Replaced non-interleaved-parityfec and interleaved-parity-fec with flexfec.</t>
+        <t>SDP simplified for the case when association to RTP is made in
+        the FEC header and not in the SDP.</t>
+      </section>
 
       <section title="draft-ietf-payload-flexible-fec-scheme-00">
         <t>Initial WG version, based on draft-singh-payload-1d2d-parity-scheme-00.</t>
