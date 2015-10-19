@@ -29,26 +29,23 @@
 <?rfc sortrefs="yes" ?>
 <?rfc colonspace='yes' ?>
 <?rfc tocindent='yes' ?>
-<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-01"
+<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-02"
      ipr="trust200902">
   <front>
     <title abbrev="RTP Payload Format for Parity FEC">RTP Payload Format for
     Flexible Forward Error Correction (FEC)</title>
 
     <author fullname="Varun Singh" initials="V." surname="Singh">
-      <organization>Nemu Dialogue System Oy</organization>
-
+      <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
       <address>
         <postal>
           <street>Runeberginkatu 4c A 4 </street>
           <city>Helsinki</city>
-          <region>FIN</region>
           <code>00100</code>
           <country>Finland</country>
         </postal>
-        <phone/>
-
         <email>varun@callstats.io</email>
+        <uri>http://www.callstats.io/</uri>
       </address>
     </author>
 
