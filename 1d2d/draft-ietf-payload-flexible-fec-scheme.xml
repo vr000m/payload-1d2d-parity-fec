@@ -2287,6 +2287,12 @@ When N > 0:
         publication as an RFC.
       </t>
 
+      <section title="draft-ietf-payload-flexible-fec-scheme-02">
+        <t>FEC packet format changed as per discussions in IETF94, Tokyo.</t>
+        <t>Added section on non-parity codes.</t>
+        <t>Registration of application/flexfec-raptor.</t>
+      </section>
+
       <section title="draft-ietf-payload-flexible-fec-scheme-01">
         <t>FEC packet format changed as per discussions in IETF93, Prague.</t>
         <t>Replaced non-interleaved-parityfec and interleaved-parity-fec with flexfec.</t>

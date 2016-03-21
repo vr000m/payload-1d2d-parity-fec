@@ -127,12 +127,13 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
    11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  35
    12. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  35
-     12.1.  draft-ietf-payload-flexible-fec-scheme-01  . . . . . . .  36
-     12.2.  draft-ietf-payload-flexible-fec-scheme-00  . . . . . . .  36
-     12.3.  draft-singh-payload-1d2d-parity-scheme-00  . . . . . . .  36
-     12.4.  draft-ietf-fecframe-1d2d-parity-scheme-00  . . . . . . .  36
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  36
+     12.1.  draft-ietf-payload-flexible-fec-scheme-02  . . . . . . .  36
+     12.2.  draft-ietf-payload-flexible-fec-scheme-01  . . . . . . .  36
+     12.3.  draft-ietf-payload-flexible-fec-scheme-00  . . . . . . .  36
+     12.4.  draft-singh-payload-1d2d-parity-scheme-00  . . . . . . .  36
+     12.5.  draft-ietf-fecframe-1d2d-parity-scheme-00  . . . . . . .  36
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  37
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  37
      13.2.  Informative References . . . . . . . . . . . . . . . . .  38
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
 
@@ -160,7 +161,6 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
    Both the non-interleaved and interleaved parity codes use the
    eXclusive OR (XOR) operation to generate the repair symbols.  In a
    nutshell, the following steps take place:
-
 
 
 
@@ -1962,7 +1962,15 @@ Singh, et al.          Expires September 22, 2016              [Page 35]
 Internet-Draft      RTP Payload Format for Parity FEC         March 2016
 
 
-12.1.  draft-ietf-payload-flexible-fec-scheme-01
+12.1.  draft-ietf-payload-flexible-fec-scheme-02
+
+   FEC packet format changed as per discussions in IETF94, Tokyo.
+
+   Added section on non-parity codes.
+
+   Registration of application/flexfec-raptor.
+
+12.2.  draft-ietf-payload-flexible-fec-scheme-01
 
    FEC packet format changed as per discussions in IETF93, Prague.
 
@@ -1972,12 +1980,12 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
    SDP simplified for the case when association to RTP is made in the
    FEC header and not in the SDP.
 
-12.2.  draft-ietf-payload-flexible-fec-scheme-00
+12.3.  draft-ietf-payload-flexible-fec-scheme-00
 
    Initial WG version, based on draft-singh-payload-1d2d-parity-scheme-
    00.
 
-12.3.  draft-singh-payload-1d2d-parity-scheme-00
+12.4.  draft-singh-payload-1d2d-parity-scheme-00
 
    This is the initial version, which is based on draft-ietf-fecframe-
    1d2d-parity-scheme-00.  The following are the major changes compared
@@ -1990,7 +1998,7 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
 
    o  Updated the media type registration and aligned to RFC6838.
 
-12.4.  draft-ietf-fecframe-1d2d-parity-scheme-00
+12.5.  draft-ietf-fecframe-1d2d-parity-scheme-00
 
    o  Some details were added regarding the use of CNAME field.
 
@@ -2001,14 +2009,6 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
 
    o  The timestamp field definition has changed.
 
-13.  References
-
-13.1.  Normative References
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
-              RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
 
 
 
@@ -2017,6 +2017,15 @@ Singh, et al.          Expires September 22, 2016              [Page 36]
 
 Internet-Draft      RTP Payload Format for Parity FEC         March 2016
 
+
+13.  References
+
+13.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
+              RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3264]  Rosenberg, J. and H. Schulzrinne, "An Offer/Answer Model
               with Session Description Protocol (SDP)", RFC 3264, DOI
@@ -2056,6 +2065,15 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
               10.17487/RFC6709, September 2012,
               <http://www.rfc-editor.org/info/rfc6709>.
 
+
+
+
+
+Singh, et al.          Expires September 22, 2016              [Page 37]
+
+Internet-Draft      RTP Payload Format for Parity FEC         March 2016
+
+
    [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
               Specifications and Registration Procedures", BCP 13, RFC
               6838, DOI 10.17487/RFC6838, January 2013,
@@ -2065,14 +2083,6 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
               "Guidelines for Choosing RTP Control Protocol (RTCP)
               Canonical Names (CNAMEs)", RFC 7022, DOI 10.17487/RFC7022,
               September 2013, <http://www.rfc-editor.org/info/rfc7022>.
-
-
-
-
-Singh, et al.          Expires September 22, 2016              [Page 37]
-
-Internet-Draft      RTP Payload Format for Parity FEC         March 2016
-
 
 13.2.  Informative References
 
@@ -2110,6 +2120,16 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
               RFC 3711, DOI 10.17487/RFC3711, March 2004,
               <http://www.rfc-editor.org/info/rfc3711>.
 
+
+
+
+
+
+Singh, et al.          Expires September 22, 2016              [Page 38]
+
+Internet-Draft      RTP Payload Format for Parity FEC         March 2016
+
+
    [RFC4301]  Kent, S. and K. Seo, "Security Architecture for the
               Internet Protocol", RFC 4301, DOI 10.17487/RFC4301,
               December 2005, <http://www.rfc-editor.org/info/rfc4301>.
@@ -2122,13 +2142,6 @@ Internet-Draft      RTP Payload Format for Parity FEC         March 2016
               (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/
               RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
-
-
-
-Singh, et al.          Expires September 22, 2016              [Page 38]
-
-Internet-Draft      RTP Payload Format for Parity FEC         March 2016
-
 
    [SMPTE2022-1]
               SMPTE 2022-1-2007, , "Forward Error Correction for Real-
@@ -2162,6 +2175,17 @@ Authors' Addresses
    Email: mzanaty@cisco.com
 
 
+
+
+
+
+
+
+Singh, et al.          Expires September 22, 2016              [Page 39]
+
+Internet-Draft      RTP Payload Format for Parity FEC         March 2016
+
+
    Giridhar Mandyam
    Qualcomm Innovation Center
    5775 Morehouse Drive
@@ -2181,4 +2205,36 @@ Authors' Addresses
 
 
 
-Singh, et al.          Expires September 22, 2016              [Page 39]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Singh, et al.          Expires September 22, 2016              [Page 40]

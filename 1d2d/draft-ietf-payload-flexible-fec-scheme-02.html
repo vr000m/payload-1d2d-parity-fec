@@ -413,10 +413,11 @@
 <link href="#rfc.section.10" rel="Chapter" title="10 IANA Considerations"/>
 <link href="#rfc.section.11" rel="Chapter" title="11 Acknowledgments"/>
 <link href="#rfc.section.12" rel="Chapter" title="12 Change Log"/>
-<link href="#rfc.section.12.1" rel="Chapter" title="12.1 draft-ietf-payload-flexible-fec-scheme-01"/>
-<link href="#rfc.section.12.2" rel="Chapter" title="12.2 draft-ietf-payload-flexible-fec-scheme-00"/>
-<link href="#rfc.section.12.3" rel="Chapter" title="12.3 draft-singh-payload-1d2d-parity-scheme-00"/>
-<link href="#rfc.section.12.4" rel="Chapter" title="12.4 draft-ietf-fecframe-1d2d-parity-scheme-00"/>
+<link href="#rfc.section.12.1" rel="Chapter" title="12.1 draft-ietf-payload-flexible-fec-scheme-02"/>
+<link href="#rfc.section.12.2" rel="Chapter" title="12.2 draft-ietf-payload-flexible-fec-scheme-01"/>
+<link href="#rfc.section.12.3" rel="Chapter" title="12.3 draft-ietf-payload-flexible-fec-scheme-00"/>
+<link href="#rfc.section.12.4" rel="Chapter" title="12.4 draft-singh-payload-1d2d-parity-scheme-00"/>
+<link href="#rfc.section.12.5" rel="Chapter" title="12.5 draft-ietf-fecframe-1d2d-parity-scheme-00"/>
 <link href="#rfc.references" rel="Chapter" title="13 References"/>
 <link href="#rfc.references.1" rel="Chapter" title="13.1 Normative References"/>
 <link href="#rfc.references.2" rel="Chapter" title="13.2 Informative References"/>
@@ -544,10 +545,11 @@
 <li>10.   <a href="#rfc.section.10">IANA Considerations</a></li>
 <li>11.   <a href="#rfc.section.11">Acknowledgments</a></li>
 <li>12.   <a href="#rfc.section.12">Change Log</a></li>
-<li>12.1.   <a href="#rfc.section.12.1">draft-ietf-payload-flexible-fec-scheme-01</a></li>
-<li>12.2.   <a href="#rfc.section.12.2">draft-ietf-payload-flexible-fec-scheme-00</a></li>
-<li>12.3.   <a href="#rfc.section.12.3">draft-singh-payload-1d2d-parity-scheme-00</a></li>
-<li>12.4.   <a href="#rfc.section.12.4">draft-ietf-fecframe-1d2d-parity-scheme-00</a></li>
+<li>12.1.   <a href="#rfc.section.12.1">draft-ietf-payload-flexible-fec-scheme-02</a></li>
+<li>12.2.   <a href="#rfc.section.12.2">draft-ietf-payload-flexible-fec-scheme-01</a></li>
+<li>12.3.   <a href="#rfc.section.12.3">draft-ietf-payload-flexible-fec-scheme-00</a></li>
+<li>12.4.   <a href="#rfc.section.12.4">draft-singh-payload-1d2d-parity-scheme-00</a></li>
+<li>12.5.   <a href="#rfc.section.12.5">draft-ietf-fecframe-1d2d-parity-scheme-00</a></li>
 <li>13.   <a href="#rfc.references">References</a></li>
 <li>13.1.   <a href="#rfc.references.1">Normative References</a></li>
 <li>13.2.   <a href="#rfc.references.2">Informative References</a></li>
@@ -1423,14 +1425,18 @@ When N &gt; 0:
 <p id="rfc.section.11.p.1">Some parts of this document are borrowed from <a href="#RFC5109">[RFC5109]</a>. Thus, the author would like to thank the editor of <a href="#RFC5109">[RFC5109]</a> and those who contributed to <a href="#RFC5109">[RFC5109]</a>.  </p>
 <h1 id="rfc.section.12"><a href="#rfc.section.12">12.</a> Change Log</h1>
 <p id="rfc.section.12.p.1">Note to the RFC-Editor: please remove this section prior to publication as an RFC.  </p>
-<h1 id="rfc.section.12.1"><a href="#rfc.section.12.1">12.1.</a> draft-ietf-payload-flexible-fec-scheme-01</h1>
-<p id="rfc.section.12.1.p.1">FEC packet format changed as per discussions in IETF93, Prague.</p>
-<p id="rfc.section.12.1.p.2">Replaced non-interleaved-parityfec and interleaved-parity-fec with flexfec.</p>
-<p id="rfc.section.12.1.p.3">SDP simplified for the case when association to RTP is made in the FEC header and not in the SDP.  </p>
-<h1 id="rfc.section.12.2"><a href="#rfc.section.12.2">12.2.</a> draft-ietf-payload-flexible-fec-scheme-00</h1>
-<p id="rfc.section.12.2.p.1">Initial WG version, based on draft-singh-payload-1d2d-parity-scheme-00.</p>
-<h1 id="rfc.section.12.3"><a href="#rfc.section.12.3">12.3.</a> draft-singh-payload-1d2d-parity-scheme-00</h1>
-<p id="rfc.section.12.3.p.1">This is the initial version, which is based on draft-ietf-fecframe-1d2d-parity-scheme-00. The following are the major changes compared to that document: </p>
+<h1 id="rfc.section.12.1"><a href="#rfc.section.12.1">12.1.</a> draft-ietf-payload-flexible-fec-scheme-02</h1>
+<p id="rfc.section.12.1.p.1">FEC packet format changed as per discussions in IETF94, Tokyo.</p>
+<p id="rfc.section.12.1.p.2">Added section on non-parity codes.</p>
+<p id="rfc.section.12.1.p.3">Registration of application/flexfec-raptor.</p>
+<h1 id="rfc.section.12.2"><a href="#rfc.section.12.2">12.2.</a> draft-ietf-payload-flexible-fec-scheme-01</h1>
+<p id="rfc.section.12.2.p.1">FEC packet format changed as per discussions in IETF93, Prague.</p>
+<p id="rfc.section.12.2.p.2">Replaced non-interleaved-parityfec and interleaved-parity-fec with flexfec.</p>
+<p id="rfc.section.12.2.p.3">SDP simplified for the case when association to RTP is made in the FEC header and not in the SDP.  </p>
+<h1 id="rfc.section.12.3"><a href="#rfc.section.12.3">12.3.</a> draft-ietf-payload-flexible-fec-scheme-00</h1>
+<p id="rfc.section.12.3.p.1">Initial WG version, based on draft-singh-payload-1d2d-parity-scheme-00.</p>
+<h1 id="rfc.section.12.4"><a href="#rfc.section.12.4">12.4.</a> draft-singh-payload-1d2d-parity-scheme-00</h1>
+<p id="rfc.section.12.4.p.1">This is the initial version, which is based on draft-ietf-fecframe-1d2d-parity-scheme-00. The following are the major changes compared to that document: </p>
 <p/>
 
 <ul>
@@ -1440,7 +1446,7 @@ When N &gt; 0:
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.12.4"><a href="#rfc.section.12.4">12.4.</a> draft-ietf-fecframe-1d2d-parity-scheme-00</h1>
+<h1 id="rfc.section.12.5"><a href="#rfc.section.12.5">12.5.</a> draft-ietf-fecframe-1d2d-parity-scheme-00</h1>
 <p/>
 
 <ul>
