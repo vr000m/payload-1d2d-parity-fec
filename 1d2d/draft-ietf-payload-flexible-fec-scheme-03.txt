@@ -1867,9 +1867,9 @@ Internet-Draft      RTP Payload Format for Parity FEC       October 2016
    author would like to thank the editor of [RFC5109] and those who
    contributed to [RFC5109].
 
-   Thanks to Rasmus Brandt , Roni Even , Stefan Holmer , and Magnus
-   Westerlund for providing valuable feedback on earlier versions of
-   this draft.
+   Thanks to Bernard Aboba , Rasmus Brandt , Roni Even , Stefan Holmer ,
+   Jonathan Lennox , and Magnus Westerlund for providing valuable
+   feedback on earlier versions of this draft.
 
 12.  Change Log
 

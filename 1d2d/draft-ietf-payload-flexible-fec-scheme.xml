@@ -2290,9 +2290,11 @@ When N > 0:
       target="RFC5109"/>.
       </t>
       <t>Thanks to
-          Rasmus Brandt
+        Bernard Aboba
+        , Rasmus Brandt
         , Roni Even
         , Stefan Holmer
+        , Jonathan Lennox
         , and Magnus Westerlund
         for providing valuable feedback on earlier versions of this draft.
       </t>
