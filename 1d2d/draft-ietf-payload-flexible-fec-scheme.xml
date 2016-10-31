@@ -31,7 +31,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc colonspace='yes' ?>
 <?rfc tocindent='yes' ?>
-<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-02"
+<rfc category="std" docName="draft-ietf-payload-flexible-fec-scheme-03"
      ipr="trust200902">
   <front>
     <title abbrev="RTP Payload Format for Parity FEC">
@@ -40,7 +40,7 @@
     </title>
 
     <author fullname="Varun Singh" initials="V." surname="Singh">
-      <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
+      <organization abbrev="callstats.io">CALLSTATS I/O Oy</organization>
       <address>
         <postal>
           <street>Runeberginkatu 4c A 4 </street>
@@ -99,7 +99,7 @@
         </postal>
 
         <phone>+1 858 651 7200</phone>
-        <email>mandyam@quicinc.com</email>
+        <email>mandyam@qti.qualcomm.com</email>
       </address>
     </author>
     <date />
@@ -673,7 +673,7 @@ would imply 2-D FEC! -->
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |F|R| P|X|  CC   |M| PT recovery |         length recovery      |
+     |R|F| P|X|  CC   |M| PT recovery |         length recovery      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                          TS recovery                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -726,6 +726,10 @@ OLD FORMAT:
 
         <t>
           <list style="symbols">
+
+            <t> The R bit MUST be set to 1 to indicate a retransmission packet,
+              and MUST be set to 0 for repair packets.</t>
+
             <t>
               The F field (1 bit) indicates the type of the mask. Namely:
               <figure anchor="table-fec-msk-bits" title="F-bit values">
@@ -741,10 +745,6 @@ OLD FORMAT:
                 </artwork>
               </figure>
             </t>
-
-            <t> The R bit MUST be set to 1 to indicate a retransmission packet,
-              and MUST be set to 0 for repair packets.</t>
-
             <t>
               The P, X, CC, M and PT recovery fields are used to determine
               the corresponding fields of the recovered packets.
@@ -806,7 +806,12 @@ OLD FORMAT:
               the header, the current count of the number of k-bit gives
               the size of the bit mask v = count(k).
               Size of next bitmask = 2^(v+3)-1.
-
+            </t>
+            <t>
+              Editor's note: If we limit the number of k-bits to 3, we could
+              essentially remove the last k-bit.
+            </t>
+      <t>
               <figure anchor="table-fec-f0-bit" title="Protocol format for F=0">
                 <artwork>
                   <![CDATA[
@@ -814,7 +819,7 @@ OLD FORMAT:
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |0|0| P|X|  CC   |M| PT recovery |         length recovery      |
+     |0|0| P|X|  CC  |M| PT recovery |         length recovery       |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                          TS recovery                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -847,7 +852,7 @@ OLD FORMAT:
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |1|0| P|X|  CC   |M| PT recovery |         length recovery      |
+     |1|0| P|X|  CC  |M| PT recovery |         length recovery       |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                          TS recovery                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -884,27 +889,33 @@ If M>0, N>1,  indicates column FEC of every M packet
         </t>
 
         <t>
-          By setting F to 1, R=1, SSRC count to 1, M=0, and N=0, the FEC protects only one
-          packet, i.e., the FEC payload carries just the packet indicated by
+          By setting R to 1, F to 1, this FEC protects only one packet,
+          i.e., the FEC payload carries just the packet indicated by
           SN Base_i, which is effectively retransmitting the packet.
+        </t>
+        <t>
+          Note that the parsing of this packet is different. The
+          sequence number (SN base_i) replaces the length recovery
+          in the FEC packet. The SSRC_count which would be 1, M and N
+          would be set to 0, and the reserved bits from the FEC header
+          are removed. By doing this, we save 64 bits.
+
           <figure anchor="table-fec-f1-bit-retx" title="Protocol format for Retransmission">
                 <artwork>
                   <![CDATA[
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |1|1| P|X|  CC   |M| PT recovery |         length recovery      |
+     |1|1| P|X|  CC  |M| PT recovery |        sequence number        |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                          TS recovery                          |
+     |                           timestamp                           |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |   SSRCCount=1 |                    reserved                   |
+     |                              SSRC                             |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                             SSRC_i                            |
+     |                         Retransmission                        |
+     :                            payload                            :
+     |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |           SN base_i           |0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0|
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-     Editor's note: this can surely be optimized.
 ]]>
                 </artwork>
               </figure>
@@ -1364,7 +1375,7 @@ If M>0, N>1,  indicates column FEC of every M packet
 
       </section>
 
-      <section title="Media Type Registration - Non-Parity Codes">
+      <!-- <section title="Media Type Registration - Non-Parity Codes">
         <t>
           This registration is done using the template defined in <xref
         target="RFC6838"/> and following the guidance provided in <xref
@@ -1445,7 +1456,7 @@ If M>0, N>1,  indicates column FEC of every M packet
         </section>
 
 
-      </section>
+      </section> -->
 
       <section title="Mapping to SDP Parameters">
         <t>
@@ -2278,6 +2289,13 @@ When N > 0:
         <xref target="RFC5109"/> and those who contributed to <xref
       target="RFC5109"/>.
       </t>
+      <t>Thanks to
+          Rasmus Brandt
+        , Roni Even
+        , Stefan Holmer
+        , and Magnus Westerlund
+        for providing valuable feedback on earlier versions of this draft.
+      </t>
     </section>
 
     <section title="Change Log">
@@ -2286,6 +2304,11 @@ When N > 0:
         Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.
       </t>
+
+      <section title="draft-ietf-payload-flexible-fec-scheme-03">
+        <t>FEC packet format changed as per discussions in IETF96, Berlin.</t>
+        <t>Removed section on non-parity codes and flexfec-raptor.</t>
+      </section>
 
       <section title="draft-ietf-payload-flexible-fec-scheme-02">
         <t>FEC packet format changed as per discussions in IETF94, Tokyo.</t>
@@ -2366,7 +2389,7 @@ When N > 0:
 
       &__reference.RFC.6838;
 
-      &__reference.RFC.6682;
+      <!-- &__reference.RFC.6682; -->
 
       &__reference.RFC.6709;
 
